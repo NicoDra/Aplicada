@@ -1,0 +1,6 @@
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\bin\AplicandoAplicada.dll.config
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\bin\AplicandoAplicada.dll
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\bin\AplicandoAplicada.pdb
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\AplicandoAplicada.csprojResolveAssemblyReference.cache
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\AplicandoAplicada.dll
+c:\users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\AplicandoAplicada.pdb

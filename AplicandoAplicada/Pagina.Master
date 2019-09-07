@@ -1,0 +1,119 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Pagina.master.cs" Inherits="AplicandoAplicada.Pagina" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, inital-scale=1.0" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="App_Themes/Tema1/estillos.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/altaClientes.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Slider.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    <header>
+
+        
+		<button id="iconMenu1" class="showIconMenu"></button>
+
+        <div id="logo">
+
+                <img src="Imagen/logo.png" class="loquiero" />
+        </div>
+		
+	</header>
+
+	<aside class="contenedorNumero1">
+
+		<nav class="contenedorNumero2">
+		
+			<div class="cabecera">
+		
+				<button id="iconMenu2" class="hideIconMenu">X</button>
+		
+			</div>
+		
+			<div class="menu">
+                <ul>
+				    <li class="item">
+                        <a runat="server" href="~/" class="btn">Inicio</a>
+				    </li>
+                    
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Clientesˇ</a>
+                        <ul>
+                            <li><a href="/AltaClientes.aspx" class="btn">Alta Clientes</a></li>
+                        </ul>      
+
+                    </li>
+                    
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Empleados ˇ</a>
+
+                        <ul>
+                            <li><a href="/AltaEmpleados.aspx" class="btn">Alta Empleados</a></li>
+                        </ul>  
+
+                    </li>
+                    
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Vehiculos ˇ</a>
+                        <ul>
+                            <li><a href="/AltaVehiculo.aspx" class="btn">Alta Vehiculos</a></li>
+                        </ul> 
+
+
+
+                    </li>
+                    
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Stock ˇ</a>
+
+                        <ul>
+                            <li><a href="/AltaStock.aspx" class="btn">Alta Stock</a></li>
+                        </ul> 
+
+
+                    </li>
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Servicios ˇ</a>
+                        <ul>
+                            <li><a href="/AltaServicio.aspx" class="btn">Alta Servicios</a></li>
+                        </ul> 
+
+
+                    </li>
+                    <li class="subitem">
+                        <a runat="server" href="#" class="btn">Detalle ˇ</a>
+
+                        <ul>
+                            <li><a href="/AltaDetalle.aspx"" class="btn">Generar Orden</a></li>
+                        </ul> 
+                    </li>
+
+
+                </ul>
+			</div>
+
+		</nav>
+
+	</aside>
+
+
+    
+    <div class="container body-content">
+        <asp:ContentPlaceHolder ID="ContenidoPrincipal" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    <footer>
+        <p>
+        <asp:Label Text="Hecho por Nicolas Drazer" runat="server" /></footer></p>
+    <script src="js/menu.js"></script>
+    <script src="js/subMenu.js"></script>
+</body>
+</html>
