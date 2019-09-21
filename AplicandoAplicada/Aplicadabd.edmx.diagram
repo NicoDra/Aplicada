@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4eedabd5c9e41fd9ee0ef3eae93c05f" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.cliente" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.marca" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.modelo" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.orden" Width="1.5" PointX="10.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.ordenestado" Width="1.5" PointX="12.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.ordenservicio" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.servicio" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.serviciostock" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.stock" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDEntidadModel.vehiculo" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_vehiculo_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_modelo_marca" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_servicio_modelo" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_vehiculo_modelo" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_orden_vehiculo" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_ordenestado_orden" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_ordenservicio_orden" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_ordenservicio_servicio" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_serviciostock_servicio" ManuallyRouted="false" />
+        <AssociationConnector Association="aplicadaBDEntidadModel.FK_serviciostock_stock" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -2,28 +2,36 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContenidoPrincipal" runat="server">
+    <form id="form1" runat="server">
     <div id="contenidoprincipal">
+
+        
 
         <br />
         <br />
-        <input type="text" id="dni" placeholder="DNI" />
+        <input type="text" id="dnitxt" name="dnitxt" placeholder="DNI" runat="server" />
         <br />
         <br />
-        <input type="text" id="txtayn" placeholder="Apellido y Nombre" />
+        <input type="text" id="txtayn" placeholder="Apellido y Nombre"  runat="server" />
         <br />
         <br />
-        <input type="text" id="tele" placeholder="Telefono" />
+        <input type="text" id="tele" placeholder="Telefono"  runat="server" />
         <br />
         <br />
-        <input type="text" id="dir" placeholder="Direccion" />
+        <input type="text" id="mail" placeholder="Mail"  runat="server" />
         <br />
+        <a href="#" id="boton" class="boton" runat="server" onserverclick="Cargando">Cargar</a>
         <br />
-        <a href="#" class="boton">Cargar</a>
+        
+        
+        
         <br />
 
 
 
 
     </div>
+    
+    </form>
     
 </asp:Content>
