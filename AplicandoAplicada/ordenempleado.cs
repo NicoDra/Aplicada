@@ -12,20 +12,13 @@ namespace AplicandoAplicada
     using System;
     using System.Collections.Generic;
     
-    public partial class modelo
+    public partial class ordenempleado
     {
-        public modelo()
-        {
-            this.servicio = new HashSet<servicio>();
-            this.vehiculo = new HashSet<vehiculo>();
-        }
+        public int id_ordenemple { get; set; }
+        public Nullable<int> id_empleado { get; set; }
+        public Nullable<int> id_orden { get; set; }
     
-        public int id_modelo { get; set; }
-        public int id_marca { get; set; }
-        public string nombre { get; set; }
-    
-        public virtual marca marca { get; set; }
-        public virtual ICollection<servicio> servicio { get; set; }
-        public virtual ICollection<vehiculo> vehiculo { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual orden orden { get; set; }
     }
 }

@@ -1,40 +1,27 @@
-﻿#contenidoprincipal{
-    
-       
+﻿.prueba{
 
-}
-.prueba{
-
-    width:50%;
     display:flex;
     flex-direction:column;
-     justify-content:center;
+    justify-content:center;
     align-items: center;
     border: 3px solid black;
-    margin-left:5px;
-    margin-top:10px;
-    float:left;
-
+    max-width:1000px;
+    padding:50px;
 }
 
+.prueba select{
 
-
-#contenidoprincipal select{
     width:80%;
     max-width:400px;
 }
 
+.prueba input{
 
-#contenidoprincipal input{
     max-width:400px;
 }
 
-#contenidoprincipal .Panel{
-    width:80%;
-    max-width:400px;
-}
+.prueba .boton{
 
-#contenidoprincipal .boton{
     text-decoration: none;
     border:2px solid black;
     padding:10px 30px;
@@ -42,18 +29,8 @@
     background: #808080;
 
 }
-#contenidoprincipal .boton:hover{
-    display:block;
-    position:static;
-}
 
-#contenidoprincipal .imagenboton{
-    width:19px;
-    height:19px;
-
-}
-
-#form1{
-
-    width:100%;
+.izquierda {
+   
+    margin-right: 50px;
 }

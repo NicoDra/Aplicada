@@ -13,10 +13,10 @@ namespace AplicandoAplicada
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class aplicadaBDEntities : DbContext
+    public partial class aplicadaBDEntities2 : DbContext
     {
-        public aplicadaBDEntities()
-            : base("name=aplicadaBDEntities")
+        public aplicadaBDEntities2()
+            : base("name=aplicadaBDEntities2")
         {
         }
     
@@ -26,15 +26,18 @@ namespace AplicandoAplicada
         }
     
         public virtual DbSet<cliente> cliente { get; set; }
+        public virtual DbSet<empleado> empleado { get; set; }
         public virtual DbSet<marca> marca { get; set; }
         public virtual DbSet<modelo> modelo { get; set; }
         public virtual DbSet<orden> orden { get; set; }
+        public virtual DbSet<ordenempleado> ordenempleado { get; set; }
         public virtual DbSet<ordenestado> ordenestado { get; set; }
         public virtual DbSet<ordenservicio> ordenservicio { get; set; }
         public virtual DbSet<servicio> servicio { get; set; }
         public virtual DbSet<serviciostock> serviciostock { get; set; }
         public virtual DbSet<stock> stock { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<tipo> tipo { get; set; }
         public virtual DbSet<vehiculo> vehiculo { get; set; }
     }
 }

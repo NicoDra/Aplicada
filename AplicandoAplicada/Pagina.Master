@@ -110,6 +110,7 @@
         
         </asp:ContentPlaceHolder>
     </div>
+
     <footer>
         <p>
         <asp:Label Text="Hecho por Nicolas Drazer" runat="server" /></footer></p>

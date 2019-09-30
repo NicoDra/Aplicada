@@ -22,7 +22,8 @@ namespace AplicandoAplicada
         public int id_vehiculo { get; set; }
         public string patente { get; set; }
         public int id_modelo { get; set; }
-        public int id_cliente { get; set; }
+        public Nullable<int> id_cliente { get; set; }
+        public string annio { get; set; }
     
         public virtual cliente cliente { get; set; }
         public virtual modelo modelo { get; set; }

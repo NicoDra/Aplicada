@@ -12,21 +12,24 @@ namespace AplicandoAplicada
     using System;
     using System.Collections.Generic;
     
-    public partial class orden
+    public partial class empleado
     {
-        public orden()
+        public empleado()
         {
             this.ordenempleado = new HashSet<ordenempleado>();
-            this.ordenestado = new HashSet<ordenestado>();
-            this.ordenservicio = new HashSet<ordenservicio>();
         }
     
-        public int id_orden { get; set; }
-        public Nullable<int> id_vehiculo { get; set; }
+        public int id_empleado { get; set; }
+        public string nombreyapellido { get; set; }
+        public string dni { get; set; }
+        public string direccion { get; set; }
+        public string correo { get; set; }
+        public string telefono { get; set; }
+        public Nullable<int> id_tipo { get; set; }
+        public string contraseña { get; set; }
+        public Nullable<int> disponibilidad { get; set; }
     
-        public virtual vehiculo vehiculo { get; set; }
+        public virtual tipo tipo { get; set; }
         public virtual ICollection<ordenempleado> ordenempleado { get; set; }
-        public virtual ICollection<ordenestado> ordenestado { get; set; }
-        public virtual ICollection<ordenservicio> ordenservicio { get; set; }
     }
 }

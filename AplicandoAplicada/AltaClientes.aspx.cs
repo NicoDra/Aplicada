@@ -19,7 +19,7 @@ namespace AplicandoAplicada.Clientes
 
         public void AddClientes()
         {
-            using(aplicadaBDEntities DBF = new aplicadaBDEntities()) //entidades
+            using(aplicadaBDEntities2 DBF = new aplicadaBDEntities2()) //entidades
             {
                 cliente Cliente = new cliente
                 {

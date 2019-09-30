@@ -23,6 +23,7 @@ namespace AplicandoAplicada
         public string detalle { get; set; }
         public string precio { get; set; }
         public string minimo { get; set; }
+        public string cantidad { get; set; }
     
         public virtual ICollection<serviciostock> serviciostock { get; set; }
     }

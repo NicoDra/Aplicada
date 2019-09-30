@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="aplicadaBDEntidadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="aplicadaBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="cliente">
     <Key>
       <PropertyRef Name="id" />
@@ -10,6 +10,22 @@
     <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="vehiculo" Relationship="Self.FK_vehiculo_cliente" FromRole="cliente" ToRole="vehiculo" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="id_empleado" />
+    </Key>
+    <Property Name="id_empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreyapellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_tipo" Type="Int32" />
+    <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tipo" Relationship="Self.FK_empleado_tipo" FromRole="empleado" ToRole="tipo" />
+    <NavigationProperty Name="ordenempleado" Relationship="Self.FK_ordenempleado_empleado" FromRole="empleado" ToRole="ordenempleado" />
+    <Property Name="disponibilidad" Type="Int32" />
   </EntityType>
   <EntityType Name="marca">
     <Key>
@@ -24,7 +40,6 @@
       <PropertyRef Name="id_modelo" />
     </Key>
     <Property Name="id_modelo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="annio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="id_marca" Type="Int32" Nullable="false" />
     <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="marca" Relationship="Self.FK_modelo_marca" FromRole="modelo" ToRole="marca" />
@@ -38,8 +53,19 @@
     <Property Name="id_orden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="id_vehiculo" Type="Int32" />
     <NavigationProperty Name="vehiculo" Relationship="Self.FK_orden_vehiculo" FromRole="orden" ToRole="vehiculo" />
+    <NavigationProperty Name="ordenempleado" Relationship="Self.FK_ordenempleado_orden" FromRole="orden" ToRole="ordenempleado" />
     <NavigationProperty Name="ordenestado" Relationship="Self.FK_ordenestado_orden" FromRole="orden" ToRole="ordenestado" />
     <NavigationProperty Name="ordenservicio" Relationship="Self.FK_ordenservicio_orden" FromRole="orden" ToRole="ordenservicio" />
+  </EntityType>
+  <EntityType Name="ordenempleado">
+    <Key>
+      <PropertyRef Name="id_ordenemple" />
+    </Key>
+    <Property Name="id_ordenemple" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_empleado" Type="Int32" />
+    <Property Name="id_orden" Type="Int32" />
+    <NavigationProperty Name="empleado" Relationship="Self.FK_ordenempleado_empleado" FromRole="ordenempleado" ToRole="empleado" />
+    <NavigationProperty Name="orden" Relationship="Self.FK_ordenempleado_orden" FromRole="ordenempleado" ToRole="orden" />
   </EntityType>
   <EntityType Name="ordenestado">
     <Key>
@@ -92,6 +118,7 @@
     <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="minimo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="serviciostock" Relationship="Self.FK_serviciostock_stock" FromRole="stock" ToRole="serviciostock" />
+    <Property Name="cantidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -103,6 +130,14 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
+  <EntityType Name="tipo">
+    <Key>
+      <PropertyRef Name="id_tipo" />
+    </Key>
+    <Property Name="id_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="empleado" Relationship="Self.FK_empleado_tipo" FromRole="tipo" ToRole="empleado" />
+  </EntityType>
   <EntityType Name="vehiculo">
     <Key>
       <PropertyRef Name="id_vehiculo" />
@@ -110,13 +145,14 @@
     <Property Name="id_vehiculo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="patente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="id_modelo" Type="Int32" Nullable="false" />
-    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <Property Name="id_cliente" Type="Int32" />
+    <Property Name="annio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="cliente" Relationship="Self.FK_vehiculo_cliente" FromRole="vehiculo" ToRole="cliente" />
     <NavigationProperty Name="modelo" Relationship="Self.FK_vehiculo_modelo" FromRole="vehiculo" ToRole="modelo" />
     <NavigationProperty Name="orden" Relationship="Self.FK_orden_vehiculo" FromRole="vehiculo" ToRole="orden" />
   </EntityType>
   <Association Name="FK_vehiculo_cliente">
-    <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
     <End Role="vehiculo" Type="Self.vehiculo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="cliente">
@@ -124,6 +160,30 @@
       </Principal>
       <Dependent Role="vehiculo">
         <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_empleado_tipo">
+    <End Role="tipo" Type="Self.tipo" Multiplicity="0..1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo">
+        <PropertyRef Name="id_tipo" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ordenempleado_empleado">
+    <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empleado">
+        <PropertyRef Name="id_empleado" />
+      </Principal>
+      <Dependent Role="ordenempleado">
+        <PropertyRef Name="id_empleado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -172,6 +232,18 @@
       </Principal>
       <Dependent Role="orden">
         <PropertyRef Name="id_vehiculo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ordenempleado_orden">
+    <End Role="orden" Type="Self.orden" Multiplicity="0..1" />
+    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orden">
+        <PropertyRef Name="id_orden" />
+      </Principal>
+      <Dependent Role="ordenempleado">
+        <PropertyRef Name="id_orden" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -235,21 +307,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="aplicadaBDEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="aplicadaBDEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="cliente" EntityType="Self.cliente" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" />
     <EntitySet Name="marca" EntityType="Self.marca" />
     <EntitySet Name="modelo" EntityType="Self.modelo" />
     <EntitySet Name="orden" EntityType="Self.orden" />
+    <EntitySet Name="ordenempleado" EntityType="Self.ordenempleado" />
     <EntitySet Name="ordenestado" EntityType="Self.ordenestado" />
     <EntitySet Name="ordenservicio" EntityType="Self.ordenservicio" />
     <EntitySet Name="servicio" EntityType="Self.servicio" />
     <EntitySet Name="serviciostock" EntityType="Self.serviciostock" />
     <EntitySet Name="stock" EntityType="Self.stock" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tipo" EntityType="Self.tipo" />
     <EntitySet Name="vehiculo" EntityType="Self.vehiculo" />
     <AssociationSet Name="FK_vehiculo_cliente" Association="Self.FK_vehiculo_cliente">
       <End Role="cliente" EntitySet="cliente" />
       <End Role="vehiculo" EntitySet="vehiculo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_empleado_tipo" Association="Self.FK_empleado_tipo">
+      <End Role="tipo" EntitySet="tipo" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ordenempleado_empleado" Association="Self.FK_ordenempleado_empleado">
+      <End Role="empleado" EntitySet="empleado" />
+      <End Role="ordenempleado" EntitySet="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_modelo_marca" Association="Self.FK_modelo_marca">
       <End Role="marca" EntitySet="marca" />
@@ -266,6 +349,10 @@
     <AssociationSet Name="FK_orden_vehiculo" Association="Self.FK_orden_vehiculo">
       <End Role="vehiculo" EntitySet="vehiculo" />
       <End Role="orden" EntitySet="orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ordenempleado_orden" Association="Self.FK_ordenempleado_orden">
+      <End Role="orden" EntitySet="orden" />
+      <End Role="ordenempleado" EntitySet="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenestado_orden" Association="Self.FK_ordenestado_orden">
       <End Role="orden" EntitySet="orden" />

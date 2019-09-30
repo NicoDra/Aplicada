@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="aplicadaBDEntidadModelStoreContainer" CdmEntityContainer="aplicadaBDEntities">
+  <EntityContainerMapping StorageEntityContainer="aplicadaBDModelStoreContainer" CdmEntityContainer="aplicadaBDEntities2">
     <EntitySetMapping Name="cliente">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.cliente">
+      <EntityTypeMapping TypeName="aplicadaBDModel.cliente">
         <MappingFragment StoreEntitySet="cliente">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="dni" ColumnName="dni" />
@@ -12,8 +12,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="empleado">
+      <EntityTypeMapping TypeName="aplicadaBDModel.empleado">
+        <MappingFragment StoreEntitySet="empleado">
+          <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
+          <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+          <ScalarProperty Name="nombreyapellido" ColumnName="nombreyapellido" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="marca">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.marca">
+      <EntityTypeMapping TypeName="aplicadaBDModel.marca">
         <MappingFragment StoreEntitySet="marca">
           <ScalarProperty Name="id_marca" ColumnName="id_marca" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -21,25 +36,33 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="modelo">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.modelo">
+      <EntityTypeMapping TypeName="aplicadaBDModel.modelo">
         <MappingFragment StoreEntitySet="modelo">
           <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
-          <ScalarProperty Name="annio" ColumnName="annio" />
           <ScalarProperty Name="id_marca" ColumnName="id_marca" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="orden">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.orden">
+      <EntityTypeMapping TypeName="aplicadaBDModel.orden">
         <MappingFragment StoreEntitySet="orden">
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
           <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ordenempleado">
+      <EntityTypeMapping TypeName="aplicadaBDModel.ordenempleado">
+        <MappingFragment StoreEntitySet="ordenempleado">
+          <ScalarProperty Name="id_ordenemple" ColumnName="id_ordenemple" />
+          <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+          <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ordenestado">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.ordenestado">
+      <EntityTypeMapping TypeName="aplicadaBDModel.ordenestado">
         <MappingFragment StoreEntitySet="ordenestado">
           <ScalarProperty Name="id_estado" ColumnName="id_estado" />
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
@@ -49,7 +72,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ordenservicio">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.ordenservicio">
+      <EntityTypeMapping TypeName="aplicadaBDModel.ordenservicio">
         <MappingFragment StoreEntitySet="ordenservicio">
           <ScalarProperty Name="id_ordenservicio" ColumnName="id_ordenservicio" />
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
@@ -58,7 +81,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="servicio">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.servicio">
+      <EntityTypeMapping TypeName="aplicadaBDModel.servicio">
         <MappingFragment StoreEntitySet="servicio">
           <ScalarProperty Name="id_servicios" ColumnName="id_servicios" />
           <ScalarProperty Name="detalle" ColumnName="detalle" />
@@ -68,7 +91,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="serviciostock">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.serviciostock">
+      <EntityTypeMapping TypeName="aplicadaBDModel.serviciostock">
         <MappingFragment StoreEntitySet="serviciostock">
           <ScalarProperty Name="id_serviciostock" ColumnName="id_serviciostock" />
           <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
@@ -77,8 +100,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="stock">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.stock">
+      <EntityTypeMapping TypeName="aplicadaBDModel.stock">
         <MappingFragment StoreEntitySet="stock">
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
           <ScalarProperty Name="id_stock" ColumnName="id_stock" />
           <ScalarProperty Name="detalle" ColumnName="detalle" />
           <ScalarProperty Name="precio" ColumnName="precio" />
@@ -87,7 +111,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.sysdiagrams">
+      <EntityTypeMapping TypeName="aplicadaBDModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -97,13 +121,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tipo">
+      <EntityTypeMapping TypeName="aplicadaBDModel.tipo">
+        <MappingFragment StoreEntitySet="tipo">
+          <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+          <ScalarProperty Name="detalle" ColumnName="detalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="vehiculo">
-      <EntityTypeMapping TypeName="aplicadaBDEntidadModel.vehiculo">
+      <EntityTypeMapping TypeName="aplicadaBDModel.vehiculo">
         <MappingFragment StoreEntitySet="vehiculo">
           <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
           <ScalarProperty Name="patente" ColumnName="patente" />
           <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
           <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="annio" ColumnName="annio" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

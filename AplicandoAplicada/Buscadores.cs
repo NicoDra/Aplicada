@@ -11,7 +11,7 @@ namespace AplicandoAplicada
         {
             cliente ocliente = new cliente();
             
-            using (aplicadaBDEntities DBF = new aplicadaBDEntities())
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
 
                 ocliente = (from q in DBF.cliente where q.id == ovehiculo.id_cliente select q).FirstOrDefault();
@@ -25,7 +25,7 @@ namespace AplicandoAplicada
         public vehiculo buscarvehiculo(string patente)
         {
             vehiculo objvehiculo = new vehiculo();
-            using (aplicadaBDEntities DBF = new aplicadaBDEntities())
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
 
                 objvehiculo = (from q in DBF.vehiculo where q.patente == patente select q).FirstOrDefault();
@@ -38,7 +38,7 @@ namespace AplicandoAplicada
         public modelo buscarmodelo(vehiculo objvehiculo)
         {
             modelo objmodelo= new modelo();
-            using (aplicadaBDEntities DBF = new aplicadaBDEntities())
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
                 
                 objmodelo = (from q in DBF.modelo where q.id_modelo == objvehiculo.id_modelo select q).FirstOrDefault();
@@ -48,21 +48,49 @@ namespace AplicandoAplicada
             return objmodelo;
         }
 
-        public List<marca> Lmarca()
+        
+        public List<empleado> Lempleado()
         {
-            List<marca> Lmarca;
+            List<empleado> Lempleados = new List<empleado>();
 
-            using (aplicadaBDEntities DBF = new aplicadaBDEntities())
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
-                IQueryable<marca> lista = (from q in DBF.marca select q);
-                Lmarca = lista.ToList();
-                
-
-
+                IQueryable<empleado> lista = (from q in DBF.empleado select q);
+                Lempleados = lista.ToList() ;
 
             }
-            return Lmarca;
+            return Lempleados;
         }
+
+       
+
+        public List<stock> Lstock()
+        {
+            List<stock> Lstock = new List<stock>();
+
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<stock> lista = (from q in DBF.stock select q);
+                Lstock = lista.ToList();
+
+            }
+            return Lstock;
+        }
+
+        public List<serviciostock> Lstockservi()
+        {
+            List<serviciostock> Lstockservi = new List<serviciostock>();
+
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<serviciostock> lista = (from q in DBF.serviciostock select q);
+                Lstockservi = lista.ToList();
+
+            }
+            return Lstockservi;
+        }
+
+        
 
 
 
