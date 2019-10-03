@@ -91,9 +91,13 @@
       <LastGenOutput>Aplicadabd.cs</LastGenOutput>
     </Content>
     <Content Include="App_Themes\Tema1\altaClientes.css" />
+    <Content Include="App_Themes\Tema1\Caja.css" />
+    <Content Include="App_Themes\Tema1\DetalleTaller.css" />
     <Content Include="App_Themes\Tema1\estillos.css" />
     <Content Include="AltaClientes.aspx" />
     <Content Include="App_Themes\Tema1\Slider.css" />
+    <Content Include="App_Themes\Tema1\AltaDetalle.css" />
+    <Content Include="App_Themes\Tema1\Taller.css" />
     <Content Include="Default.aspx" />
     <Content Include="Imagen\logo.png" />
     <Content Include="Imagen\lupa.png" />
@@ -104,6 +108,9 @@
     <Content Include="js\menu.js" />
     <Content Include="js\subMenu.js" />
     <Content Include="Web.config" />
+    <Content Include="Taller.aspx" />
+    <Content Include="Caja.aspx" />
+    <Content Include="DetalleTaller.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AltaClientes.aspx.cs">
@@ -220,6 +227,27 @@
     </Compile>
     <Compile Include="vehiculo.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Taller.aspx.cs">
+      <DependentUpon>Taller.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Taller.aspx.designer.cs">
+      <DependentUpon>Taller.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Caja.aspx.cs">
+      <DependentUpon>Caja.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Caja.aspx.designer.cs">
+      <DependentUpon>Caja.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleTaller.aspx.cs">
+      <DependentUpon>DetalleTaller.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleTaller.aspx.designer.cs">
+      <DependentUpon>DetalleTaller.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

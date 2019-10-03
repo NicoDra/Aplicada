@@ -48,6 +48,19 @@ namespace AplicandoAplicada
             return objmodelo;
         }
 
+        public marca buscarmarca(modelo objmodelo)
+        {
+            marca objmarca = new marca();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.marca where q.id_marca == objmodelo.id_marca select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+
         
         public List<empleado> Lempleado()
         {

@@ -12,6 +12,9 @@
     <link href="App_Themes/Tema1/estillos.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/altaClientes.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Slider.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/AltaDetalle.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Taller.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Caja.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
 </head>
 <body>

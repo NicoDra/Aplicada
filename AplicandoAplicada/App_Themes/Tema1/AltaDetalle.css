@@ -1,0 +1,119 @@
+﻿.FormDetalle{
+
+    display: inline-block !important;
+}
+
+.contenedor1{
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 100vh;
+	margin-bottom: 30px;
+	border: 2px solid black;
+}
+
+.contenedor2{
+
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+
+	width: 100%;
+	border-left: 2px solid black;
+}
+
+.contenedor2 input{
+
+	border: none;
+	border-bottom: 2px solid black;
+	background: none;
+	padding: 20px 0;
+}
+
+.vehiculo{
+
+	border-bottom: 2px solid black;
+}
+
+.vehiculo, .duenio{
+	
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+	-ms-align-items: center;
+	align-items: center;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	width: 100%
+}
+
+.vehiculo input, .duenio input{
+
+	border: none;
+	border-bottom: 2px solid black;
+	background: none;
+	padding: 20px 0;
+	width: 70%;
+}
+
+.contenedor2 .vehiculo .inputbtn{
+
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+	width: 70%;
+}
+
+.contenedor2 .vehiculo .inputbtn input{
+
+	border: none;
+	border-bottom: 2px solid black;
+	background: none;
+	padding: 20px 0;
+	width: 100%;
+	margin-right: 10px;
+}
+
+.contenedor2 .vehiculo .inputbtn a{
+
+	text-decoration: none;
+	color: black;
+	border: 2px solid black;
+	background: #f2f2f2;
+	padding: 12px 38px;
+	border-radius: 50px;
+}
+
+.btnGuardar{
+
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-around;
+	-ms-align-items: center;
+	align-items: center;
+	height: 100px;
+}
+
+.guardarCambios{
+
+	text-decoration: none;
+	color: black;
+	border: 2px solid black;
+	background: #f2f2f2;
+	padding: 12px 38px;
+	border-radius: 50px;
+}
