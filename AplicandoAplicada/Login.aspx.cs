@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace AplicandoAplicada
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page
     {
         public empleado LogEmpleado
         {
@@ -24,11 +24,20 @@ namespace AplicandoAplicada
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (LogEmpleado != null)
-            {Label1.Text = LogEmpleado.correo;
+
+        }
+
+        protected void btnLogin_ServerClick(object sender, EventArgs e)
+        {
+            Buscadores bus = new Buscadores();
+            empleado oempleado = bus.buscarempleado(txtemail.Value);
+            if (oempleado.contraseña == txtcontraseña.Value)
+            {
+                LogEmpleado = oempleado;
+                Server.Transfer("Default.aspx");
 
             }
-            
+
         }
     }
 }

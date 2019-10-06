@@ -1,12 +1,38 @@
-﻿.ContenedorTalleristas{
-
+﻿.ContenedorTalleristas {
     width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction:column;
+    min-height: 500px;
+}
+
+.ContenedorTalleristas .select {
+
+    width: 50%;
+}
+
+.FormDetalleTaller{
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
 }
 
-.ContenedorTalleristas .select{
+.FormDetalleTaller .select {
 
+    font-size: 13px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.ContenedorTalleristas input {
+   
+    border: none;
+    border-bottom: 2px solid black;
+    background: none;
+    padding: 20px 0;
     width: 50%;
 }

@@ -117,3 +117,54 @@
 	padding: 12px 38px;
 	border-radius: 50px;
 }
+
+.drop{
+
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.drop .Dmodelo{
+
+    width:70%;
+    font-size: 18px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom:15px;
+}
+
+.drop .modelito{
+
+    width:70%;
+    font-size: 18px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.contenedor1 .contenedorServicios{
+
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.divaux{
+
+    width:100%;
+    margin-bottom:30px;
+}
+
+.contenedor1 .contenedorServicios .GridView1{
+
+    margin: auto;
+    width:80%;
+    text-align: center;
+}

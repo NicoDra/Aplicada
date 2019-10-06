@@ -15,6 +15,8 @@
     <link href="App_Themes/Tema1/AltaDetalle.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Taller.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Caja.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/DetalleTaller.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Login.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
@@ -46,58 +48,37 @@
                         <a runat="server" href="~/" class="btn">Inicio</a>
 				    </li>
                     
-                    <li class="subitem">
+<%--                    <li class="subitem">
                         <a runat="server" href="#" class="btn">Clientesˇ</a>
                         <ul>
                             <li><a href="/AltaClientes.aspx" class="btn">Alta Clientes</a></li>
                         </ul>      
 
+                    </li>--%>
+                    
+                    <li class="subitem">
+                        <a href="AltaDetalle.aspx" class="btn" runat="server" id="btnAltadetalle" Visible="false">Alta Detalle</a>
                     </li>
                     
                     <li class="subitem">
-                        <a runat="server" href="#" class="btn">Empleados ˇ</a>
-
-                        <ul>
-                            <li><a href="/AltaEmpleados.aspx" class="btn">Alta Empleados</a></li>
-                        </ul>  
-
+                        <a href="DetalleTaller.aspx" class="btn" runat="server" id="btnDetalleTaller" Visible="false">Detalle Taller</a>
                     </li>
                     
                     <li class="subitem">
-                        <a runat="server" href="#" class="btn">Vehiculos ˇ</a>
-                        <ul>
-                            <li><a href="/AltaVehiculo.aspx" class="btn">Alta Vehiculos</a></li>
-                        </ul> 
-
-
-
+                        <a href="Caja.aspx" class="btn" runat="server" id="btnCaja" Visible="false">Caja</a>
                     </li>
-                    
+
                     <li class="subitem">
-                        <a runat="server" href="#" class="btn">Stock ˇ</a>
-
-                        <ul>
-                            <li><a href="/AltaStock.aspx" class="btn">Alta Stock</a></li>
-                        </ul> 
-
-
+                        <a href="Taller.aspx" class="btn" runat="server" id="btnTaller" Visible="false">Taller</a>
                     </li>
+
                     <li class="subitem">
-                        <a runat="server" href="#" class="btn">Servicios ˇ</a>
-                        <ul>
-                            <li><a href="/AltaServicio.aspx" class="btn">Alta Servicios</a></li>
-                        </ul> 
-
-
+                        <a href="Login.aspx" class="btn" runat="server" id="btnLogin" Visible="false">Log in</a>
                     </li>
+
                     <li class="subitem">
-                        <a runat="server" href="#" class="btn">Detalle ˇ</a>
-
-                        <ul>
-                            <li><a href="/AltaDetalle.aspx"" class="btn">Generar Orden</a></li>
-                        </ul> 
+                        <a href="#" class="btn" runat="server" visible="false" id="btnLogout" onserverclick="btnLogout_ServerClick">Log out</a>
                     </li>
-
 
                 </ul>
 			</div>
@@ -115,8 +96,9 @@
     </div>
 
     <footer>
-        <p>
-        <asp:Label Text="Hecho por Nicolas Drazer" runat="server" /></footer></p>
+
+        <asp:Label Text="Hecho por Nicolas Drazer" runat="server" /></footer>
+
     <script src="js/menu.js"></script>
     <script src="js/subMenu.js"></script>
 </body>

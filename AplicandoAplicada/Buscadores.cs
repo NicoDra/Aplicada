@@ -10,6 +10,10 @@ namespace AplicandoAplicada
         public cliente ocliente(vehiculo ovehiculo)
         {
             cliente ocliente = new cliente();
+            if (ovehiculo.id_cliente != null)
+            {
+
+
             
             using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
@@ -18,6 +22,8 @@ namespace AplicandoAplicada
 
                 
 
+            }
+            return ocliente;
             }
             return ocliente;
         }
@@ -59,6 +65,19 @@ namespace AplicandoAplicada
 
             }
             return objmarca;
+        }
+
+        public servicio buscarservicio(int id)
+        {
+            servicio objserv= new servicio();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objserv = (from q in DBF.servicio where q.id_servicios == id select q).FirstOrDefault();
+
+
+            }
+            return objserv;
         }
 
         
@@ -103,9 +122,46 @@ namespace AplicandoAplicada
             return Lstockservi;
         }
 
-        
+        public cliente oclientedni(string dni)
+        {
+            cliente ocliente = new cliente();
+
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                ocliente = (from q in DBF.cliente where q.dni == dni select q).FirstOrDefault();
 
 
+
+            }
+            return ocliente;
+        }
+
+        public orden ultimaorden()
+        {
+            orden result = new orden();
+            using(aplicadaBDEntities2 context = new aplicadaBDEntities2()){
+
+                result = (from item in context.orden orderby item.id_orden descending select item ).First();
+
+}
+
+
+            return result;
+
+        }
+        public empleado buscarempleado(string email)
+        {
+           empleado objmarca = new empleado();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.empleado where q.correo == email select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
 
 
     }
