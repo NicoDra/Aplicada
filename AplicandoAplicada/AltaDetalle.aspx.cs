@@ -65,10 +65,11 @@ namespace AplicandoAplicada
             
             if (!IsPostBack)
             {
-               //DivAAuto.Visible = false;
-               //ServiciosDiv.Visible = false;
-               //DropMecanicosDispo.Visible = false;
-               //Lservi.Clear();
+                if (LogEmpleado.id_tipo != 2)
+                {
+                    Server.Transfer("Default.aspx");
+                }
+               
            
                
 
@@ -275,6 +276,10 @@ namespace AplicandoAplicada
 
         protected void Avanzar(object sender, EventArgs e)
         {
+            if ((txtpatente.Value != "") && (txtdni.Value != ""))
+            {
+
+            
             Buscadores bus = new Buscadores();
             cliente ocliente = bus.oclientedni(txtdni.Value);
             vehiculo ovehiculo = bus.buscarvehiculo(txtpatente.Value);
@@ -285,14 +290,14 @@ namespace AplicandoAplicada
                 CargarOrden();
                 Server.Transfer("DetalleTaller.aspx");
 
-
             }
             else
             {
-                unLabel.Text = "no pasaste de pagina";
+                
 
             }
-            
+
+            }
 
         }
 
@@ -446,6 +451,12 @@ namespace AplicandoAplicada
             GridView2.DataBind();
             }
 
+
+        }
+
+        protected void Cancelar(object sender, EventArgs e)
+        {
+            Server.Transfer("AltaDetalle.aspx");
 
         }
        

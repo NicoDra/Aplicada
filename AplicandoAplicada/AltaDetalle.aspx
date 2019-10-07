@@ -131,9 +131,9 @@
 
 	<div class="btnGuardar">
 		
-		<a href="#" class="guardarCambios">Cancelar</a>
+		<a href="#" class="guardarCambios" runat="server" onserverclick="Cancelar">Cancelar</a>
 		<a href="#" class="guardarCambios">Imprimir</a>
-        <asp:Label ID="unLabel" runat="server" Text="Label" ></asp:Label>
+        
 		<a href="#" class="guardarCambios" runat="server" onserverclick="Avanzar">Pasar a taller</a>
 
 	</div>

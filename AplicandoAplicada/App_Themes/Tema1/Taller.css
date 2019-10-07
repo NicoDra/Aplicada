@@ -3,7 +3,6 @@
 	min-height: 100vh;
 	width: 100%;
 	min-height: 100vh;
-	padding: 50px;
 }
 
 .contenedor .orden{
@@ -24,7 +23,7 @@
 	-ms-align-items: center;
 	align-items: center;
 	
-	height: 600px;
+	height:300px;
 	width: 100%;
 }
 
@@ -41,11 +40,8 @@
 	align-items: center;
 
 	justify-content: space-around;
-}
 
-.contenedor .orden .datos label{
-
-	font-size: 24px;
+    font-size: 32px;
 }
 
 .contenedor .orden .servicios{
@@ -61,11 +57,6 @@
 	align-items: center;
 
 	justify-content: space-around;
-}
-
-.contenedor .orden .datos{
-
-	
 }
 
 .contenedor .btnTaller{
@@ -87,4 +78,14 @@
 	padding: 12px 35px;
 	border: 2px solid #000;
 	border-radius: 50px;
+}
+
+.servicios .divaux{
+
+    width:30% !important;
+}
+
+.servicios .gridTaller{
+
+    width:100%;
 }

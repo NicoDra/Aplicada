@@ -163,6 +163,71 @@ namespace AplicandoAplicada
             return objmarca;
         }
 
+        //Desde aca
+        public ordenempleado buscarempleadoorden(int id)
+        {
+            ordenempleado objmarca = new ordenempleado();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.ordenempleado orderby q.id_ordenemple descending where q.id_empleado == id select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+
+        public orden buscarorden(int id)
+        {
+            orden objmarca = new orden();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.orden where q.id_orden == id select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+        public vehiculo buscarvehiculoid(int id)
+        {
+            vehiculo objmarca = new vehiculo();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.vehiculo where q.id_vehiculo== id select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+
+        public List<ordenservicio> buscarlistaid(int id)
+        {
+            List<ordenservicio> a = new List<ordenservicio>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                a = (from q in DBF.ordenservicio where q.id_orden == id select q).ToList();
+
+
+            }
+            return a;
+        }
+
+        public ordenestado buscarvestadoorden(int id)
+        {
+            ordenestado objmarca = new ordenestado();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.ordenestado where q.id_orden == id select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+
 
     }
 }
