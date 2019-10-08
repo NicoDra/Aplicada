@@ -24,10 +24,7 @@ namespace AplicandoAplicada
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (LogEmpleado != null)
-            {Label1.Text = LogEmpleado.correo;
 
-            }
             
         }
     }

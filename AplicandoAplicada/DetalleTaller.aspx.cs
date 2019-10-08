@@ -23,6 +23,20 @@ namespace AplicandoAplicada
             }
         }
 
+        public List<stock> Lstock
+        {
+            get
+            {
+                if (Session["Lstock"] == null)
+                    Session["Lstock"] = new List<stock>();
+                return (List<stock>)Session["Lstock"];
+            }
+            set
+            {
+                Session["Lstock"] = value;
+            }
+        }
+
         public orden OrdenActual
         {
             get
@@ -48,7 +62,7 @@ namespace AplicandoAplicada
 
         protected void btnpasarataller_ServerClick(object sender, EventArgs e)
         {
-            if (LogEmpleado.contraseña == txtpwd.Value)
+            if ((LogEmpleado.contraseña == txtpwd.Value)&&(DropMecanicosDispo.SelectedValue.ToString()!=""))
             {
                 using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
                 {
@@ -64,14 +78,27 @@ namespace AplicandoAplicada
                     DBF.SaveChanges();
                     ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                     oestado.estado = 1;
+                    oestado.fecha = System.DateTime.Now;   //////////////////////////////////////////////////////////
                     DBF.SaveChanges();
                     empleado oempleado = (from q in DBF.empleado where q.id_empleado == ordenemple.id_empleado select q).First();
                     oempleado.disponibilidad = 1;
                     DBF.SaveChanges();
+                    foreach (stock ostock in Lstock)
+                    {
+                        stock Stocko = new stock();
+                        Stocko = (from q in DBF.stock where q.id_stock == ostock.id_stock select q).First();
+                        Stocko.cantidad = (int.Parse(Stocko.cantidad) - 1).ToString();
+                        DBF.SaveChanges();
+                    }
                     OrdenActual = null;
+                    Lstock = null;
                     Server.Transfer("Default.aspx");
 
                 }
+            }
+            else
+            {
+                Server.Transfer("DetalleTaller.aspx");
             }
         }
     }

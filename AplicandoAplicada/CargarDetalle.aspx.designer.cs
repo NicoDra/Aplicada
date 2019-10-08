@@ -10,7 +10,7 @@
 namespace AplicandoAplicada {
     
     
-    public partial class AltaDetalle {
+    public partial class CargarDetalle {
         
         /// <summary>
         /// Control form1.
@@ -76,22 +76,13 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// Control GridView1.
+        /// Control txtidorden.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-        
-        /// <summary>
-        /// Control btnServicios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnServicios;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtidorden;
         
         /// <summary>
         /// Control GridView2.
@@ -184,24 +175,6 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtdni;
         
         /// <summary>
-        /// Control btnAgregarcliente.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnAgregarcliente;
-        
-        /// <summary>
-        /// Control A1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor A1;
-        
-        /// <summary>
         /// Control txtapellido.
         /// </summary>
         /// <remarks>
@@ -236,14 +209,5 @@ namespace AplicandoAplicada {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtemail;
-        
-        /// <summary>
-        /// Control btnGuardar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnGuardar;
     }
 }

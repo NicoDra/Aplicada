@@ -27,7 +27,9 @@
 
         <div id="logo">
 
-                <img src="Imagen/logo.png" class="loquiero" />
+            <div><asp:Label ID="Label1" CssClass="LabelHeader" runat="server" Text="Label"></asp:Label></div>                
+            <a href="Default.aspx"><img src="Imagen/logo.png" class="loquiero" /></a>
+
         </div>
 		
 	</header>
@@ -55,9 +57,17 @@
                         </ul>      
 
                     </li>--%>
+
+                    <li class="subitem">
+                        <a href="Login.aspx" class="btn" runat="server" id="btnLogin" Visible="false">Log in</a>
+                    </li>
                     
                     <li class="subitem">
                         <a href="AltaDetalle.aspx" class="btn" runat="server" id="btnAltadetalle" Visible="false">Alta Detalle</a>
+                    </li>
+
+                    <li class="subitem">
+                        <a href="CargarDetalle.aspx" class="btn" runat="server" Visible="false" id="btncargardetalle" >Cargar Detalle</a>
                     </li>
                     
                     <li class="subitem">
@@ -71,11 +81,7 @@
                     <li class="subitem">
                         <a href="Taller.aspx" class="btn" runat="server" id="btnTaller" Visible="false">Taller</a>
                     </li>
-
-                    <li class="subitem">
-                        <a href="Login.aspx" class="btn" runat="server" id="btnLogin" Visible="false">Log in</a>
-                    </li>
-
+                    
                     <li class="subitem">
                         <a href="#" class="btn" runat="server" visible="false" id="btnLogout" onserverclick="btnLogout_ServerClick">Log out</a>
                     </li>

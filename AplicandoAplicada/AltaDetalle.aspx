@@ -5,6 +5,23 @@
 
     <form id="form1" runat="server" class="FormDetalle">
 
+        <div class="StockError" id="StockError" runat="server" visible="false">
+
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+             
+        </div>
+
+        <div class="StockWarning" id="StockWarning" runat="server" visible="false">
+
+            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+
+        </div>
+
+        <div class="StockWarning" id="NoAuto" runat="server" visible="false">
+
+            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+
+        </div>
  <div class="contenedor1">
 
 		<div class="contenedorServicios">

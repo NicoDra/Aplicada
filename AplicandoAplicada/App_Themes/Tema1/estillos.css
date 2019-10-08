@@ -90,6 +90,19 @@ header .titulo {
 header #logo {
 
     height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+header #logo .LabelHeader{
+
+    margin-right: 30px;
+}
+
+header #logo a{
+
+    height:100%;
 }
 
 header #logo .loquiero{

@@ -57,7 +57,19 @@ namespace AplicandoAplicada
                 Session["Orden"] = value;
             }
         }
-      
+        public List<stock> Lstock
+        {
+            get
+            {
+                if (Session["Lstock"] == null)
+                    Session["Lstock"] = new List<stock>();
+                return (List<stock>)Session["Lstock"];
+            }
+            set
+            {
+                Session["Lstock"] = value;
+            }
+        }
        
 
         protected void Page_Load(object sender, EventArgs e)
@@ -89,19 +101,42 @@ namespace AplicandoAplicada
             {
 
                 vehiculo objvehiculo = bus.buscarvehiculo(a);
+                
                 if (objvehiculo != null)
                 {
+                    ordenestado ordenestado = new ordenestado();
+                    orden orden = bus.buscarordenporvehiculo(objvehiculo.id_vehiculo);
+                    if (orden != null)
+                    {
+                     ordenestado = bus.buscarvestadoorden(orden.id_orden);
+                    }
+                    if ((ordenestado==null)||(ordenestado.estado == null) || (ordenestado.estado == 4))
+                    {
+
+                    NoAuto.Visible = false;
                     RecargarAuto();
                     VerGrid();
                     A1.Visible = true;
                     btnServicios.Visible = true;
 
+                    }
+                    else
+                    {
+
+                        Label3.Text = "EL VEHICULO YA POSEE UNA ORDEN ACTIVA";
+                        NoAuto.Visible = true;
+
+                    }
+
                 }
                 else
                 {
+                    NoAuto.Visible = true;
+                    Label3.Text = "PONER ENTRE DE 6 Y 7 CARACTERES";
                     int b = txtpatente.Value.Length;
-                    if (b>=6)
+                    if (b>=6 && b<=7)
                     {
+                        NoAuto.Visible = false;
                         Dmodelo.Visible = true;
                         modelito.Visible = true;
                         txtmodelo.Visible = false;
@@ -276,10 +311,9 @@ namespace AplicandoAplicada
 
         protected void Avanzar(object sender, EventArgs e)
         {
-            if ((txtpatente.Value != "") && (txtdni.Value != ""))
+            if ((txtpatente.Value != "") && (txtdni.Value != "") && (StockError.Visible=true))
             {
 
-            
             Buscadores bus = new Buscadores();
             cliente ocliente = bus.oclientedni(txtdni.Value);
             vehiculo ovehiculo = bus.buscarvehiculo(txtpatente.Value);
@@ -293,10 +327,14 @@ namespace AplicandoAplicada
             }
             else
             {
-                
+                Server.Transfer("AltaDetalle.aspx");
 
             }
 
+            }
+            else
+            {
+                Server.Transfer("AltaDetalle.aspx");
             }
 
         }
@@ -318,7 +356,8 @@ namespace AplicandoAplicada
                 ordenestado oOrdenEstado = new ordenestado
                 {
                     id_orden = oorden.id_orden,
-                    estado = 0
+                    estado = 0,
+                    fecha= System.DateTime.Now
 
                 };
                 DBF.ordenestado.Add(oOrdenEstado);
@@ -420,7 +459,10 @@ namespace AplicandoAplicada
         }
 
 
-        protected void CargarServicios(object sender, EventArgs e){
+        protected void CargarServicios(object sender, EventArgs e)
+        {
+            StockError.Visible = false;
+            StockWarning.Visible = false;
             List<servicio> Lse = new List<servicio>();
             DataTable dt = new DataTable();
             Buscadores bus = new Buscadores();
@@ -436,23 +478,47 @@ namespace AplicandoAplicada
                         string precio = row.Cells[2].Text;
                         string id = row.Cells[0].Text;
                         int id_servicio = int.Parse(id);
+
+                        List<serviciostock> Lserstock = Lserviciostock(id_servicio.ToString());
+                        List<stock> Nstock = Lstockuso(Lserstock);
+                        
                         servicio oservicio = bus.buscarservicio(id_servicio);
                         Lse.Add(oservicio);
                         dt.Rows.Add(detalle, precio);
+                        foreach (stock ostock in Nstock)
+                        {
+                            Lstock.Add(ostock);
+                            if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
+                            {
+                                StockError.Visible = true;
+                                Label1.Text = "¡ATENCION! EL STOCK ES MENOR AL MINIMO: " + ostock.detalle;
 
+
+                            }
+                            if ((int.Parse(ostock.cantidad) >= int.Parse(ostock.minimo)) && (int.Parse(ostock.cantidad) <= (int.Parse(ostock.minimo)+5))&&(StockError.Visible==false))
+                            {
+                                StockWarning.Visible = true; //Aca alerta queda poco stock Queda restar
+                                Label2.Text = "¡ATENCION! EL STOCK ESTA CERCANO AL MINIMO: " + ostock.detalle;
+
+                  
+                            }
+                        }
                     }
 
                 }
-
             }
-            if (Lse.Count <= 5) {
+            if (Lse.Count <= 5)
+            {
                 Lservi = Lse;
-            GridView2.DataSource = dt;
-            GridView2.DataBind();
+                GridView2.DataSource = dt;
+                GridView2.DataBind();
             }
-
-
         }
+
+           
+
+
+        
 
         protected void Cancelar(object sender, EventArgs e)
         {
@@ -531,38 +597,38 @@ namespace AplicandoAplicada
         //    }
 
 
-        //    public List<serviciostock> Lserviciostock(String id )
-        //    {
-        //        Buscadores bus = new Buscadores();
-        //        List<serviciostock> Lserviciostocks =bus.Lstockservi();
-        //        List<serviciostock> NLserviciostock = new List<serviciostock>();
-        //        NLserviciostock = Lserviciostocks.FindAll(s => s.id_servicio == int.Parse(id));
+            public List<serviciostock> Lserviciostock(String id )
+            {
+                Buscadores bus = new Buscadores();
+                List<serviciostock> Lserviciostocks =bus.Lstockservi();
+                List<serviciostock> NLserviciostock = new List<serviciostock>();
+                NLserviciostock = Lserviciostocks.FindAll(s => s.id_servicio == int.Parse(id));
 
-        //        return NLserviciostock;
+                return NLserviciostock;
 
-        //    }
+            }
 
-        //    public List<stock> Lstockuso(List<serviciostock> Lstockservi)
-        //    {
-        //        Buscadores bus = new Buscadores();
-        //        List<stock> Lstock = bus.Lstock();
-        //        List<stock> stockactivo = new List<stock>();
-        //        foreach (stock Stock in Lstock)
-        //        {
-        //            foreach (serviciostock Servistock in Lstockservi)
-        //            {
-        //                if (Stock.id_stock==Servistock.id_stock)
-        //                {
-        //                    stockactivo.Add(Stock);
+        public List<stock> Lstockuso(List<serviciostock> Lstockservi)
+        {
+            Buscadores bus = new Buscadores();
+            List<stock> Lstock = bus.Lstock();
+            List<stock> stockactivo = new List<stock>();
+            foreach (stock Stock in Lstock)
+            {
+                foreach (serviciostock Servistock in Lstockservi)
+                {
+                    if (Stock.id_stock == Servistock.id_stock)
+                    {
+                        stockactivo.Add(Stock);
 
-        //                }
+                    }
 
-        //            }
-        //        }
+                }
+            }
 
-        //        return stockactivo;
+            return stockactivo;
 
-        //    }
+        }
         
         
 

@@ -49,6 +49,16 @@ namespace AplicandoAplicada
             
             Buscadores bus = new Buscadores();
             ordenempleado OrdenEmpleado = bus.buscarempleadoorden(LogEmpleado.id_empleado);
+            if(OrdenEmpleado==null){
+                lblpatente.Text = "No tienes ningun vehiculo asignado. ";
+                lblmodelo.Text = "-";
+                btnaceptar.Visible = false;
+                btnfinalizar.Visible = false;
+            }
+            else
+            {
+
+            
             int a = int.Parse(OrdenEmpleado.id_orden.ToString());
             orden Orden = bus.buscarorden(a);
             OrdenActual = Orden;
@@ -66,8 +76,17 @@ namespace AplicandoAplicada
             lblpatente.Text = "PATENTE: "+ ovehiculo.patente.ToString();
             lblmodelo.Text = "MODELO: " + omodelo.nombre.ToString();
             }
+            else
+            {
+                lblpatente.Text = "No tienes ningun vehiculo asignado. ";
+                lblmodelo.Text = "-";
+                    btnaceptar.Visible=false;
+                btnfinalizar.Visible=false;
+
+            }
                }
         
+        }
         }
 
         private void CheckBoton(ordenestado oestado)
@@ -110,6 +129,7 @@ namespace AplicandoAplicada
                 {
                     ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                     oestado.estado = 2;
+                    oestado.fecha = System.DateTime.Now;
                     DBF.SaveChanges();
                     CheckBoton(oestado);
 
@@ -124,6 +144,7 @@ namespace AplicandoAplicada
             {
                 ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                 oestado.estado = 3;
+                oestado.fecha = System.DateTime.Now;
                 DBF.SaveChanges();
                 empleado oempleado = (from q in DBF.empleado where q.id_empleado == LogEmpleado.id_empleado select q).First();
                 oempleado.disponibilidad = 0;

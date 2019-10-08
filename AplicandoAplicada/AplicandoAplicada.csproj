@@ -99,6 +99,7 @@
     <Content Include="App_Themes\Tema1\Slider.css" />
     <Content Include="App_Themes\Tema1\AltaDetalle.css" />
     <Content Include="App_Themes\Tema1\Taller.css" />
+    <Content Include="CargarDetalle.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Imagen\logo.png" />
     <Content Include="Imagen\lupa.png" />
@@ -173,6 +174,13 @@
       <DependentUpon>Aplicadabd.edmx</DependentUpon>
     </Compile>
     <Compile Include="Buscadores.cs" />
+    <Compile Include="CargarDetalle.aspx.cs">
+      <DependentUpon>CargarDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CargarDetalle.aspx.designer.cs">
+      <DependentUpon>CargarDetalle.aspx</DependentUpon>
+    </Compile>
     <Compile Include="cliente.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>

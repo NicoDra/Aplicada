@@ -26,6 +26,12 @@ namespace AplicandoAplicada
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (LogEmpleado != null)
+            {
+                Label1.Text = LogEmpleado.correo;
+            }
+
             if (LogEmpleado.correo != null)
             {
                 btnLogout.Visible = true ;
@@ -42,6 +48,7 @@ namespace AplicandoAplicada
                 btnTaller.Visible = false;
                 btnDetalleTaller.Visible=false;
                 btnLogin.Visible = true;
+                btncargardetalle.Visible = false;
                
             }
         }
@@ -60,6 +67,7 @@ namespace AplicandoAplicada
             if (LogEmpleado.id_tipo == 2)
             {
                 btnAltadetalle.Visible = true;
+                btncargardetalle.Visible = true;
 
             }
         }

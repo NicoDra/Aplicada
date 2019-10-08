@@ -163,7 +163,7 @@ namespace AplicandoAplicada
             return objmarca;
         }
 
-        //Desde aca
+        
         public ordenempleado buscarempleadoorden(int id)
         {
             ordenempleado objmarca = new ordenempleado();
@@ -171,6 +171,19 @@ namespace AplicandoAplicada
             {
 
                 objmarca = (from q in DBF.ordenempleado orderby q.id_ordenemple descending where q.id_empleado == id select q).FirstOrDefault();
+
+
+            }
+            return objmarca;
+        }
+
+        public orden buscarordenporvehiculo(int id)
+        {
+            orden objmarca = new orden();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.orden orderby q.id_orden descending where q.id_vehiculo== id select q).FirstOrDefault();
 
 
             }
@@ -228,6 +241,56 @@ namespace AplicandoAplicada
             return objmarca;
         }
 
+    public List<ordenestado> buscarListOrdenEstado(int n)
+        {
+            List<ordenestado> objmarca = new List<ordenestado>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+
+                objmarca = (from q in DBF.ordenestado where q.estado == n select q).ToList();
+
+
+            }
+            return objmarca;
+        }
+
+
+        public List<orden> buscarordeestado(List<ordenestado>Lorde)
+        {
+            List<orden> objmarca = new List<orden>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                foreach(ordenestado x in Lorde){
+                    orden oorden = (from q in DBF.orden where q.id_orden == x.id_orden select q).FirstOrDefault();
+                    x.orden = oorden;
+                    objmarca.Add(oorden);
+                }
+
+            }
+            return objmarca;
+        }
+
+        public List<vehiculo> buscarordevehiculo(List<orden>Lorde)
+        {
+            List<vehiculo> objmarca = new List<vehiculo>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                foreach(orden x in Lorde){
+                    vehiculo oorden = (from q in DBF.vehiculo where q.id_vehiculo == x.id_vehiculo select q).FirstOrDefault();
+                    x.vehiculo=oorden;
+                }
+
+            }
+            return objmarca;
+        }
+
+        
 
     }
-}
+
+    }
+
+
+
+    
+
