@@ -64,7 +64,7 @@ namespace AplicandoAplicada
         {
             if ((LogEmpleado.contraseña == txtpwd.Value)&&(DropMecanicosDispo.SelectedValue.ToString()!=""))
             {
-                using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+                using ( aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
                 {
 
                     ordenempleado ordenemple = new ordenempleado

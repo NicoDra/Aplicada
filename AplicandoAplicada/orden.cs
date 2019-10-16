@@ -23,6 +23,7 @@ namespace AplicandoAplicada
     
         public int id_orden { get; set; }
         public Nullable<int> id_vehiculo { get; set; }
+        public string mpago { get; set; }
     
         public virtual vehiculo vehiculo { get; set; }
         public virtual ICollection<ordenempleado> ordenempleado { get; set; }

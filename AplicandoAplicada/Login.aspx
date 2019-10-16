@@ -11,7 +11,7 @@
 
             <div class="form">
 
-                <input type="text" placeholder="Usuario o correo electronico" runat="server" id="txtemail"/>
+                <input type="text" placeholder="Ingrese correo electronico" runat="server" id="txtemail"/>
                 <input type="password" placeholder="Contraseña" runat="server" id="txtcontraseña"/>
 
             </div>

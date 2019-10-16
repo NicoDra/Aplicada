@@ -179,6 +179,9 @@ namespace AplicandoAplicada
                 oestado.estado = 4;
                 oestado.fecha = System.DateTime.Now;
                 DBF.SaveChanges();
+                orden oorden = (from q in DBF.orden where q.id_orden == Ordenn.id_orden select q).First();
+                oorden.mpago = "Efectivo";
+                DBF.SaveChanges();
                 Server.Transfer("Caja.aspx");
 
             }

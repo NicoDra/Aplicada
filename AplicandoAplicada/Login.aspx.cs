@@ -31,12 +31,15 @@ namespace AplicandoAplicada
         {
             Buscadores bus = new Buscadores();
             empleado oempleado = bus.buscarempleado(txtemail.Value);
+            if(oempleado!=null){
+
+            
             if (oempleado.contraseña == txtcontraseña.Value)
             {
                 LogEmpleado = oempleado;
                 Server.Transfer("Default.aspx");
 
-            }
+            }}
 
         }
     }

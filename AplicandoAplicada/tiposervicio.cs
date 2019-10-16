@@ -12,21 +12,16 @@ namespace AplicandoAplicada
     using System;
     using System.Collections.Generic;
     
-    public partial class stock
+    public partial class tiposervicio
     {
-        public stock()
+        public tiposervicio()
         {
-            this.serviciostock = new HashSet<serviciostock>();
+            this.servicio = new HashSet<servicio>();
         }
     
-        public int id_stock { get; set; }
-        public string detalle { get; set; }
-        public string precio { get; set; }
-        public string minimo { get; set; }
-        public string cantidad { get; set; }
-        public string codigo { get; set; }
-        public string marca { get; set; }
+        public int id { get; set; }
+        public string tipodeservicio { get; set; }
     
-        public virtual ICollection<serviciostock> serviciostock { get; set; }
+        public virtual ICollection<servicio> servicio { get; set; }
     }
 }

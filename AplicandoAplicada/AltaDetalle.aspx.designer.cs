@@ -76,13 +76,31 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// Control GridView1.
+        /// Control DropTipoServicio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.DropDownList DropTipoServicio;
+        
+        /// <summary>
+        /// Control Tiposdeservicios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource Tiposdeservicios;
+        
+        /// <summary>
+        /// Control DropServicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropServicio;
         
         /// <summary>
         /// Control btnServicios.
@@ -121,6 +139,24 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtmodelo;
         
         /// <summary>
+        /// Control Dmarca.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Dmarca;
+        
+        /// <summary>
+        /// Control EMarca.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource EMarca;
+        
+        /// <summary>
         /// Control Dmodelo.
         /// </summary>
         /// <remarks>
@@ -130,31 +166,13 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.WebControls.DropDownList Dmodelo;
         
         /// <summary>
-        /// Control DMarca.
+        /// Control SqlDataSource1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource DMarca;
-        
-        /// <summary>
-        /// Control modelito.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList modelito;
-        
-        /// <summary>
-        /// Control Dmodelado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource Dmodelado;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
         /// Control txtmarca.

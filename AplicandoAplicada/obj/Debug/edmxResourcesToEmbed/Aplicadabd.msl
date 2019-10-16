@@ -15,7 +15,6 @@
     <EntitySetMapping Name="empleado">
       <EntityTypeMapping TypeName="aplicadaBDModel.empleado">
         <MappingFragment StoreEntitySet="empleado">
-          <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
           <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
           <ScalarProperty Name="nombreyapellido" ColumnName="nombreyapellido" />
           <ScalarProperty Name="dni" ColumnName="dni" />
@@ -24,6 +23,7 @@
           <ScalarProperty Name="telefono" ColumnName="telefono" />
           <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
           <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -49,6 +49,7 @@
         <MappingFragment StoreEntitySet="orden">
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
           <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+          <ScalarProperty Name="mpago" ColumnName="mpago" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -87,6 +88,7 @@
           <ScalarProperty Name="detalle" ColumnName="detalle" />
           <ScalarProperty Name="precio" ColumnName="precio" />
           <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+          <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -102,11 +104,13 @@
     <EntitySetMapping Name="stock">
       <EntityTypeMapping TypeName="aplicadaBDModel.stock">
         <MappingFragment StoreEntitySet="stock">
-          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
           <ScalarProperty Name="id_stock" ColumnName="id_stock" />
           <ScalarProperty Name="detalle" ColumnName="detalle" />
           <ScalarProperty Name="precio" ColumnName="precio" />
           <ScalarProperty Name="minimo" ColumnName="minimo" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="marca" ColumnName="marca" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -129,6 +133,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tiposervicio">
+      <EntityTypeMapping TypeName="aplicadaBDModel.tiposervicio">
+        <MappingFragment StoreEntitySet="tiposervicio">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="tipodeservicio" ColumnName="tipodeservicio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="vehiculo">
       <EntityTypeMapping TypeName="aplicadaBDModel.vehiculo">
         <MappingFragment StoreEntitySet="vehiculo">
@@ -140,5 +152,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="aplicadaBDModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="aplicadaBDModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="aplicadaBDModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="aplicadaBDModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="aplicadaBDModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="aplicadaBDModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="aplicadaBDModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="aplicadaBDModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="aplicadaBDModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

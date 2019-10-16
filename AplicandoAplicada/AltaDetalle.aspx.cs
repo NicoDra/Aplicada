@@ -74,7 +74,11 @@ namespace AplicandoAplicada
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (DropServicio.Visible == true)
+            {
+                VerGrid();
+
+            }
             if (!IsPostBack)
             {
                 if (LogEmpleado.id_tipo != 2)
@@ -105,12 +109,13 @@ namespace AplicandoAplicada
                 if (objvehiculo != null)
                 {
                     ordenestado ordenestado = new ordenestado();
+                    
                     orden orden = bus.buscarordenporvehiculo(objvehiculo.id_vehiculo);
                     if (orden != null)
                     {
                      ordenestado = bus.buscarvestadoorden(orden.id_orden);
                     }
-                    if ((ordenestado==null)||(ordenestado.estado == null) || (ordenestado.estado == 4))
+                    if ((orden==null)||(ordenestado.estado == null) || (ordenestado.estado == 4))
                     {
 
                     NoAuto.Visible = false;
@@ -118,6 +123,7 @@ namespace AplicandoAplicada
                     VerGrid();
                     A1.Visible = true;
                     btnServicios.Visible = true;
+                    DropServicio.Visible = true;
 
                     }
                     else
@@ -138,7 +144,7 @@ namespace AplicandoAplicada
                     {
                         NoAuto.Visible = false;
                         Dmodelo.Visible = true;
-                        modelito.Visible = true;
+                        Dmarca.Visible = true;
                         txtmodelo.Visible = false;
                         txtmarca.Visible = false;
                         btnAgregarcliente.Visible = true;
@@ -238,6 +244,8 @@ namespace AplicandoAplicada
 
             }
             EstadoOriginal();
+            DropServicio.Visible = true;
+            DropTipoServicio.Visible = true;
             VerGrid();
             btnServicios.Visible = true;
 
@@ -423,7 +431,7 @@ namespace AplicandoAplicada
 
             txtmodelo.Visible = true;
             txtmarca.Visible = true;
-            modelito.Visible = false;
+            Dmodelo.Visible = false;
             Dmodelo.Visible = false;
             txtapellido.Disabled = true;
             txtnombre.Disabled = true;
@@ -438,20 +446,29 @@ namespace AplicandoAplicada
         {
             List<servicio> Lservicios;
 
+            DropServicio.Items.Clear();
+
             using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
                 IQueryable<servicio> lista = (from q in DBF.servicio select q);
                 Lservicios = lista.ToList();
+                
                 Buscadores bus = new Buscadores();
                 string a = txtpatente.Value;
                 vehiculo objvehiculo = bus.buscarvehiculo(a);
                 modelo objmodelo = bus.buscarmodelo(objvehiculo);
+                
 
-
+                Lservicios = Lservicios.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
                 Lservicios = Lservicios.FindAll(ser => ser.id_modelo == objmodelo.id_modelo);
+                foreach (servicio x in Lservicios)
+                {
+                    ListItem i;
+                    i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                    DropServicio.Items.Add(i);
+                }
 
-                GridView1.DataSource = Lservicios;
-                GridView1.DataBind();
+                
                
             }
 
@@ -459,61 +476,65 @@ namespace AplicandoAplicada
         }
 
 
-        protected void CargarServicios(object sender, EventArgs e)
-        {
-            StockError.Visible = false;
-            StockWarning.Visible = false;
-            List<servicio> Lse = new List<servicio>();
-            DataTable dt = new DataTable();
-            Buscadores bus = new Buscadores();
-            dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Detalle"), new DataColumn("Precio") });
-            foreach (GridViewRow row in GridView1.Rows)
-            {
-                if (row.RowType == DataControlRowType.DataRow)
-                {
-                    System.Web.UI.WebControls.CheckBox chkRow = (row.Cells[3].FindControl("chkRow") as System.Web.UI.WebControls.CheckBox);
-                    if (chkRow.Checked)
-                    {
-                        string detalle = row.Cells[1].Text;
-                        string precio = row.Cells[2].Text;
-                        string id = row.Cells[0].Text;
-                        int id_servicio = int.Parse(id);
+        //protected void CargarServicios(object sender, EventArgs e)
+        //{
+        //    StockError.Visible = false;
+        //    StockWarning.Visible = false;
+        //    List<servicio> Lse = new List<servicio>();
+        //    DataTable dt = new DataTable();
+        //    Buscadores bus = new Buscadores();
+        //    dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Detalle"), new DataColumn("Precio") });
+        //    foreach (GridViewRow row in GridView1.Rows)
+        //    {
+        //        if (row.RowType == DataControlRowType.DataRow)
+        //        {
+        //            System.Web.UI.WebControls.CheckBox chkRow = (row.Cells[3].FindControl("chkRow") as System.Web.UI.WebControls.CheckBox);
+        //            if (chkRow.Checked)
+        //            {
+        //                string detalle = row.Cells[1].Text;
+        //                string precio = row.Cells[2].Text;
+        //                string id = row.Cells[0].Text;
+        //                int id_servicio = int.Parse(id);
 
-                        List<serviciostock> Lserstock = Lserviciostock(id_servicio.ToString());
-                        List<stock> Nstock = Lstockuso(Lserstock);
+        //                List<serviciostock> Lserstock = Lserviciostock(id_servicio.ToString());
+        //                List<stock> Nstock = Lstockuso(Lserstock);
                         
-                        servicio oservicio = bus.buscarservicio(id_servicio);
-                        Lse.Add(oservicio);
-                        dt.Rows.Add(detalle, precio);
-                        foreach (stock ostock in Nstock)
-                        {
-                            Lstock.Add(ostock);
-                            if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
-                            {
-                                StockError.Visible = true;
-                                Label1.Text = "¡ATENCION! EL STOCK ES MENOR AL MINIMO: " + ostock.detalle;
+        //                servicio oservicio = bus.buscarservicio(id_servicio);
+        //                Lse.Add(oservicio);
+        //                dt.Rows.Add(detalle, precio);
+        //                foreach (stock ostock in Nstock)
+        //                {
+        //                    Lstock.Add(ostock);
+        //                    if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
+        //                    {
+        //                        StockError.Visible = true;
+        //                        Label1.Text = "¡ATENCION! EL STOCK ES MENOR AL MINIMO: " + ostock.detalle;
 
 
-                            }
-                            if ((int.Parse(ostock.cantidad) >= int.Parse(ostock.minimo)) && (int.Parse(ostock.cantidad) <= (int.Parse(ostock.minimo)+5))&&(StockError.Visible==false))
-                            {
-                                StockWarning.Visible = true; //Aca alerta queda poco stock Queda restar
-                                Label2.Text = "¡ATENCION! EL STOCK ESTA CERCANO AL MINIMO: " + ostock.detalle;
+        //                    }
+        //                    if ((int.Parse(ostock.cantidad) >= int.Parse(ostock.minimo)) && (int.Parse(ostock.cantidad) <= (int.Parse(ostock.minimo)+5))&&(StockError.Visible==false))
+        //                    {
+        //                        StockWarning.Visible = true; //Aca alerta queda poco stock Queda restar
+        //                        Label2.Text = "¡ATENCION! EL STOCK ESTA CERCANO AL MINIMO: " + ostock.detalle;
 
                   
-                            }
-                        }
-                    }
+        //                    }
+        //                }
+        //            }
 
-                }
-            }
-            if (Lse.Count <= 5)
-            {
-                Lservi = Lse;
-                GridView2.DataSource = dt;
-                GridView2.DataBind();
-            }
-        }
+        //        }
+        //    }
+        //    if (Lse.Count <= 5)
+        //    {
+        //        NoAuto.Visible = false;
+        //        Lservi = Lse;
+        //        GridView2.DataSource = dt;
+        //        GridView2.DataBind();
+        //    }else{
+        //        NoAuto.Visible = true;
+        //        Label3.Text = "No ingrese mas de 5 servicios";
+        //    }
+        //}
 
            
 
@@ -528,73 +549,6 @@ namespace AplicandoAplicada
        
 
 
-
-
-
-        //    protected void CargarServicios(object sender, EventArgs e){
-
-        //        ServiciosDiv.Visible = true;
-        //        DropMecanicosDispo.Visible = true;
-                
-                
-        //        VerGrid();
-                
-
-        //    }
-
-        //    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        //        {
-        //            string id = GridView1.SelectedRow.Cells[1].Text;
-        //            string detalle = GridView1.SelectedRow.Cells[2].Text;
-        //            string precio = GridView1.SelectedRow.Cells[3].Text;
-        //        List<serviciostock> Lserstock = Lserviciostock(id);
-        //        Buscadores bus = new Buscadores();
-        //        List<stock> Nstock = Lstockuso(Lserstock);
-        //        foreach(stock ostock in Nstock){
-        //            if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
-        //            {
-        //                StockError.Visible = true;
-
-        //            }
-
-        //        }
-
-
-                
-                
-
-
-                
-                
-        //        servicio Servi = new servicio();
-        //        Servi.id_servicios = int.Parse(id);
-        //        Servi.detalle = detalle;
-        //        Servi.precio = precio;
-                
-                
-        //        Lservi.Add(Servi);
-        //        GridView2.DataSource = Lservi;
-        //        GridView2.DataBind();
-        //    }
-
-        //    protected void EliminarGrid2(object sender, EventArgs e)
-        //    {
-
-
-        //        string id = GridView2.SelectedRow.Cells[1].Text;
-        //        string detalle = GridView2.SelectedRow.Cells[2].Text;
-        //        string precio = GridView2.SelectedRow.Cells[3].Text;
-
-        //        servicio Servi = new servicio();
-        //        Servi.id_servicios = int.Parse(id);
-        //        Servi.detalle = detalle;
-        //        Servi.precio = precio;
-
-        //        Servi = Lservi.Find(servicio => servicio.id_servicios == Servi.id_servicios);
-        //        Lservi.Remove(Servi);
-        //        GridView2.DataSource = Lservi;
-        //        GridView2.DataBind();
-        //    }
 
 
             public List<serviciostock> Lserviciostock(String id )

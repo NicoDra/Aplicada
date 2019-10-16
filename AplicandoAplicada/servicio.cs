@@ -24,9 +24,11 @@ namespace AplicandoAplicada
         public string detalle { get; set; }
         public string precio { get; set; }
         public int id_modelo { get; set; }
+        public int id_tipo { get; set; }
     
         public virtual modelo modelo { get; set; }
         public virtual ICollection<ordenservicio> ordenservicio { get; set; }
+        public virtual tiposervicio tiposervicio { get; set; }
         public virtual ICollection<serviciostock> serviciostock { get; set; }
     }
 }

@@ -92,8 +92,6 @@
 		</nav>
 
 	</aside>
-
-
     
     <div class="container body-content">
         <asp:ContentPlaceHolder ID="ContenidoPrincipal" runat="server">

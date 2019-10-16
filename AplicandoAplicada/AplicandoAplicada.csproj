@@ -233,16 +233,16 @@
     <Compile Include="serviciostock.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
     <Compile Include="stock.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Aplicadabd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tipo.cs">
-      <DependentUpon>Aplicadabd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="vehiculo.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>
     <Compile Include="Taller.aspx.cs">
@@ -265,6 +265,15 @@
     </Compile>
     <Compile Include="DetalleTaller.aspx.designer.cs">
       <DependentUpon>DetalleTaller.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tipo.cs">
+      <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tiposervicio.cs">
+      <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vehiculo.cs">
+      <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

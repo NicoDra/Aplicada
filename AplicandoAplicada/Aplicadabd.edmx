@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="aplicadaBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="aplicadaBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="cliente">
           <Key>
             <PropertyRef Name="id" />
@@ -50,6 +50,7 @@
           </Key>
           <Property Name="id_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_vehiculo" Type="int" />
+          <Property Name="mpago" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ordenempleado">
           <Key>
@@ -84,6 +85,7 @@
           <Property Name="detalle" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="precio" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_modelo" Type="int" Nullable="false" />
+          <Property Name="id_tipo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="serviciostock">
           <Key>
@@ -102,6 +104,8 @@
           <Property Name="precio" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="minimo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="cantidad" Type="varchar" MaxLength="50" />
+          <Property Name="codigo" Type="varchar" MaxLength="50" />
+          <Property Name="marca" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -119,6 +123,13 @@
           </Key>
           <Property Name="id_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="detalle" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tiposervicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipodeservicio" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="vehiculo">
           <Key>
@@ -238,6 +249,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_servicio_tiposervicio">
+          <End Role="tiposervicio" Type="Self.tiposervicio" Multiplicity="1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposervicio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_serviciostock_servicio">
           <End Role="servicio" Type="Self.servicio" Multiplicity="1" />
           <End Role="serviciostock" Type="Self.serviciostock" Multiplicity="*" />
@@ -286,6 +309,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="aplicadaBDModelStoreContainer">
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
@@ -300,6 +354,7 @@
           <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tipo" EntityType="Self.tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposervicio" EntityType="Self.tiposervicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vehiculo" EntityType="Self.vehiculo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_empleado_tipo" Association="Self.FK_empleado_tipo">
             <End Role="tipo" EntitySet="tipo" />
@@ -337,6 +392,10 @@
             <End Role="modelo" EntitySet="modelo" />
             <End Role="servicio" EntitySet="servicio" />
           </AssociationSet>
+          <AssociationSet Name="FK_servicio_tiposervicio" Association="Self.FK_servicio_tiposervicio">
+            <End Role="tiposervicio" EntitySet="tiposervicio" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
           <AssociationSet Name="FK_serviciostock_servicio" Association="Self.FK_serviciostock_servicio">
             <End Role="servicio" EntitySet="servicio" />
             <End Role="serviciostock" EntitySet="serviciostock" />
@@ -354,7 +413,8 @@
             <End Role="vehiculo" EntitySet="vehiculo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="aplicadaBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -381,9 +441,9 @@
           <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_tipo" Type="Int32" />
           <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="disponibilidad" Type="Int32" />
           <NavigationProperty Name="tipo" Relationship="Self.FK_empleado_tipo" FromRole="empleado" ToRole="tipo" />
           <NavigationProperty Name="ordenempleado" Relationship="Self.FK_ordenempleado_empleado" FromRole="empleado" ToRole="ordenempleado" />
-          <Property Name="disponibilidad" Type="Int32" />
         </EntityType>
         <EntityType Name="marca">
           <Key>
@@ -410,6 +470,7 @@
           </Key>
           <Property Name="id_orden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_vehiculo" Type="Int32" />
+          <Property Name="mpago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="vehiculo" Relationship="Self.FK_orden_vehiculo" FromRole="orden" ToRole="vehiculo" />
           <NavigationProperty Name="ordenempleado" Relationship="Self.FK_ordenempleado_orden" FromRole="orden" ToRole="ordenempleado" />
           <NavigationProperty Name="ordenestado" Relationship="Self.FK_ordenestado_orden" FromRole="orden" ToRole="ordenestado" />
@@ -453,15 +514,17 @@
           <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_modelo" Type="Int32" Nullable="false" />
+          <Property Name="id_tipo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="modelo" Relationship="Self.FK_servicio_modelo" FromRole="servicio" ToRole="modelo" />
           <NavigationProperty Name="ordenservicio" Relationship="Self.FK_ordenservicio_servicio" FromRole="servicio" ToRole="ordenservicio" />
+          <NavigationProperty Name="tiposervicio" Relationship="Self.FK_servicio_tiposervicio" FromRole="servicio" ToRole="tiposervicio" />
           <NavigationProperty Name="serviciostock" Relationship="Self.FK_serviciostock_servicio" FromRole="servicio" ToRole="serviciostock" />
         </EntityType>
         <EntityType Name="serviciostock">
           <Key>
             <PropertyRef Name="id_serviciostock" />
           </Key>
-          <Property Name="id_serviciostock" Type="Int32" Nullable="false" />
+          <Property Name="id_serviciostock" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_servicio" Type="Int32" Nullable="false" />
           <Property Name="id_stock" Type="Int32" Nullable="false" />
           <NavigationProperty Name="servicio" Relationship="Self.FK_serviciostock_servicio" FromRole="serviciostock" ToRole="servicio" />
@@ -475,8 +538,10 @@
           <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="minimo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="serviciostock" Relationship="Self.FK_serviciostock_stock" FromRole="stock" ToRole="serviciostock" />
           <Property Name="cantidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="serviciostock" Relationship="Self.FK_serviciostock_stock" FromRole="stock" ToRole="serviciostock" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -495,6 +560,14 @@
           <Property Name="id_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="empleado" Relationship="Self.FK_empleado_tipo" FromRole="tipo" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="tiposervicio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipodeservicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="servicio" Relationship="Self.FK_servicio_tiposervicio" FromRole="tiposervicio" ToRole="servicio" />
         </EntityType>
         <EntityType Name="vehiculo">
           <Key>
@@ -641,6 +714,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_servicio_tiposervicio">
+          <End Role="tiposervicio" Type="Self.tiposervicio" Multiplicity="1" />
+          <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposervicio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="servicio">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_serviciostock_servicio">
           <End Role="servicio" Type="Self.servicio" Multiplicity="1" />
           <End Role="serviciostock" Type="Self.serviciostock" Multiplicity="*" />
@@ -679,6 +764,7 @@
           <EntitySet Name="stock" EntityType="Self.stock" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tipo" EntityType="Self.tipo" />
+          <EntitySet Name="tiposervicio" EntityType="Self.tiposervicio" />
           <EntitySet Name="vehiculo" EntityType="Self.vehiculo" />
           <AssociationSet Name="FK_vehiculo_cliente" Association="Self.FK_vehiculo_cliente">
             <End Role="cliente" EntitySet="cliente" />
@@ -724,6 +810,10 @@
             <End Role="servicio" EntitySet="servicio" />
             <End Role="ordenservicio" EntitySet="ordenservicio" />
           </AssociationSet>
+          <AssociationSet Name="FK_servicio_tiposervicio" Association="Self.FK_servicio_tiposervicio">
+            <End Role="tiposervicio" EntitySet="tiposervicio" />
+            <End Role="servicio" EntitySet="servicio" />
+          </AssociationSet>
           <AssociationSet Name="FK_serviciostock_servicio" Association="Self.FK_serviciostock_servicio">
             <End Role="servicio" EntitySet="servicio" />
             <End Role="serviciostock" EntitySet="serviciostock" />
@@ -732,7 +822,48 @@
             <End Role="stock" EntitySet="stock" />
             <End Role="serviciostock" EntitySet="serviciostock" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(aplicadaBDModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(aplicadaBDModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -753,7 +884,6 @@
           <EntitySetMapping Name="empleado">
             <EntityTypeMapping TypeName="aplicadaBDModel.empleado">
               <MappingFragment StoreEntitySet="empleado">
-                <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
                 <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
                 <ScalarProperty Name="nombreyapellido" ColumnName="nombreyapellido" />
                 <ScalarProperty Name="dni" ColumnName="dni" />
@@ -762,6 +892,7 @@
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
                 <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -787,6 +918,7 @@
               <MappingFragment StoreEntitySet="orden">
                 <ScalarProperty Name="id_orden" ColumnName="id_orden" />
                 <ScalarProperty Name="id_vehiculo" ColumnName="id_vehiculo" />
+                <ScalarProperty Name="mpago" ColumnName="mpago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -825,6 +957,7 @@
                 <ScalarProperty Name="detalle" ColumnName="detalle" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="id_modelo" ColumnName="id_modelo" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -840,11 +973,13 @@
           <EntitySetMapping Name="stock">
             <EntityTypeMapping TypeName="aplicadaBDModel.stock">
               <MappingFragment StoreEntitySet="stock">
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="id_stock" ColumnName="id_stock" />
                 <ScalarProperty Name="detalle" ColumnName="detalle" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -867,6 +1002,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tiposervicio">
+            <EntityTypeMapping TypeName="aplicadaBDModel.tiposervicio">
+              <MappingFragment StoreEntitySet="tiposervicio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipodeservicio" ColumnName="tipodeservicio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vehiculo">
             <EntityTypeMapping TypeName="aplicadaBDModel.vehiculo">
               <MappingFragment StoreEntitySet="vehiculo">
@@ -878,6 +1021,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="aplicadaBDModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="aplicadaBDModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="aplicadaBDModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="aplicadaBDModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="aplicadaBDModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="aplicadaBDModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="aplicadaBDModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="aplicadaBDModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="aplicadaBDModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -45,6 +45,7 @@
     </Key>
     <Property Name="id_orden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_vehiculo" Type="int" />
+    <Property Name="mpago" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ordenempleado">
     <Key>
@@ -79,6 +80,7 @@
     <Property Name="detalle" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="precio" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="id_modelo" Type="int" Nullable="false" />
+    <Property Name="id_tipo" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="serviciostock">
     <Key>
@@ -97,6 +99,8 @@
     <Property Name="precio" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="minimo" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="cantidad" Type="varchar" MaxLength="50" />
+    <Property Name="codigo" Type="varchar" MaxLength="50" />
+    <Property Name="marca" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -114,6 +118,13 @@
     </Key>
     <Property Name="id_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="detalle" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tiposervicio">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipodeservicio" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="vehiculo">
     <Key>
@@ -233,6 +244,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_servicio_tiposervicio">
+    <End Role="tiposervicio" Type="Self.tiposervicio" Multiplicity="1" />
+    <End Role="servicio" Type="Self.servicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tiposervicio">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="servicio">
+        <PropertyRef Name="id_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_serviciostock_servicio">
     <End Role="servicio" Type="Self.servicio" Multiplicity="1" />
     <End Role="serviciostock" Type="Self.serviciostock" Multiplicity="*" />
@@ -281,6 +304,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="aplicadaBDModelStoreContainer">
     <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
@@ -295,6 +349,7 @@
     <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tipo" EntityType="Self.tipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tiposervicio" EntityType="Self.tiposervicio" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="vehiculo" EntityType="Self.vehiculo" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_empleado_tipo" Association="Self.FK_empleado_tipo">
       <End Role="tipo" EntitySet="tipo" />
@@ -330,6 +385,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_servicio_modelo" Association="Self.FK_servicio_modelo">
       <End Role="modelo" EntitySet="modelo" />
+      <End Role="servicio" EntitySet="servicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_servicio_tiposervicio" Association="Self.FK_servicio_tiposervicio">
+      <End Role="tiposervicio" EntitySet="tiposervicio" />
       <End Role="servicio" EntitySet="servicio" />
     </AssociationSet>
     <AssociationSet Name="FK_serviciostock_servicio" Association="Self.FK_serviciostock_servicio">
