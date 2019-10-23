@@ -56,8 +56,8 @@
     <EntitySetMapping Name="ordenempleado">
       <EntityTypeMapping TypeName="aplicadaBDModel.ordenempleado">
         <MappingFragment StoreEntitySet="ordenempleado">
-          <ScalarProperty Name="id_ordenemple" ColumnName="id_ordenemple" />
           <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+          <ScalarProperty Name="id_ordenemple" ColumnName="id_ordenemple" />
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -65,16 +65,22 @@
     <EntitySetMapping Name="ordenestado">
       <EntityTypeMapping TypeName="aplicadaBDModel.ordenestado">
         <MappingFragment StoreEntitySet="ordenestado">
+          <ScalarProperty Name="fecha_entregado" ColumnName="fecha_entregado" />
+          <ScalarProperty Name="fecha_cobrado" ColumnName="fecha_cobrado" />
+          <ScalarProperty Name="fecha_servicefin" ColumnName="fecha_servicefin" />
+          <ScalarProperty Name="fecha_mecanico" ColumnName="fecha_mecanico" />
+          <ScalarProperty Name="fecha_espera" ColumnName="fecha_espera" />
+          <ScalarProperty Name="fecha_presupuesto" ColumnName="fecha_presupuesto" />
           <ScalarProperty Name="id_estado" ColumnName="id_estado" />
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
           <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ordenservicio">
       <EntityTypeMapping TypeName="aplicadaBDModel.ordenservicio">
         <MappingFragment StoreEntitySet="ordenservicio">
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
           <ScalarProperty Name="id_ordenservicio" ColumnName="id_ordenservicio" />
           <ScalarProperty Name="id_orden" ColumnName="id_orden" />
           <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />

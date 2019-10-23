@@ -129,7 +129,7 @@ namespace AplicandoAplicada
                 {
                     ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                     oestado.estado = 2;
-                    oestado.fecha = System.DateTime.Now;
+                    oestado.fecha_mecanico = System.DateTime.Now;
                     DBF.SaveChanges();
                     CheckBoton(oestado);
 
@@ -144,7 +144,7 @@ namespace AplicandoAplicada
             {
                 ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                 oestado.estado = 3;
-                oestado.fecha = System.DateTime.Now;
+                oestado.fecha_servicefin = System.DateTime.Now;
                 DBF.SaveChanges();
                 empleado oempleado = (from q in DBF.empleado where q.id_empleado == LogEmpleado.id_empleado select q).First();
                 oempleado.disponibilidad = 0;

@@ -51,7 +51,7 @@
     <Key>
       <PropertyRef Name="id_ordenemple" />
     </Key>
-    <Property Name="id_ordenemple" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_ordenemple" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
     <Property Name="id_empleado" Type="int" />
     <Property Name="id_orden" Type="int" />
   </EntityType>
@@ -62,7 +62,12 @@
     <Property Name="id_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_orden" Type="int" Nullable="false" />
     <Property Name="estado" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="fecha_presupuesto" Type="date" />
+    <Property Name="fecha_espera" Type="date" />
+    <Property Name="fecha_mecanico" Type="date" />
+    <Property Name="fecha_servicefin" Type="date" />
+    <Property Name="fecha_cobrado" Type="date" />
+    <Property Name="fecha_entregado" Type="date" />
   </EntityType>
   <EntityType Name="ordenservicio">
     <Key>
@@ -71,6 +76,7 @@
     <Property Name="id_ordenservicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_orden" Type="int" Nullable="false" />
     <Property Name="id_servicio" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
   </EntityType>
   <EntityType Name="servicio">
     <Key>
@@ -173,8 +179,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ordenempleado_empleado">
-    <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
-    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <End Type="Self.empleado" Multiplicity="0..1" Role="empleado" />
+    <End Type="Self.ordenempleado" Multiplicity="*" Role="ordenempleado" />
     <ReferentialConstraint>
       <Principal Role="empleado">
         <PropertyRef Name="id_empleado" />
@@ -185,8 +191,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ordenempleado_orden">
-    <End Role="orden" Type="Self.orden" Multiplicity="0..1" />
-    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <End Type="Self.orden" Multiplicity="0..1" Role="orden" />
+    <End Type="Self.ordenempleado" Multiplicity="*" Role="ordenempleado" />
     <ReferentialConstraint>
       <Principal Role="orden">
         <PropertyRef Name="id_orden" />
@@ -364,12 +370,12 @@
       <End Role="orden" EntitySet="orden" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenempleado_empleado" Association="Self.FK_ordenempleado_empleado">
-      <End Role="empleado" EntitySet="empleado" />
-      <End Role="ordenempleado" EntitySet="ordenempleado" />
+      <End EntitySet="empleado" Role="empleado" />
+      <End EntitySet="ordenempleado" Role="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenempleado_orden" Association="Self.FK_ordenempleado_orden">
-      <End Role="orden" EntitySet="orden" />
-      <End Role="ordenempleado" EntitySet="ordenempleado" />
+      <End EntitySet="orden" Role="orden" />
+      <End EntitySet="ordenempleado" Role="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenestado_orden" Association="Self.FK_ordenestado_orden">
       <End Role="orden" EntitySet="orden" />

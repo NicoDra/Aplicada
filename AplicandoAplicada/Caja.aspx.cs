@@ -138,11 +138,22 @@ namespace AplicandoAplicada
         }
 
 
-
+        private void MetodosdePago()
+        {
+            ListItem i;
+            i = new ListItem("Tarjeta de Credito", "Tarjeta de Credito");
+            DropMetododePago.Items.Add(i);
+            i = new ListItem("Tarjeta de Debito", "Tarjeta de Debito");
+            DropMetododePago.Items.Add(i);
+            i = new ListItem("Efectivo","Efectivo");
+            DropMetododePago.Items.Add(i);
+            divmetodo.Visible = true;
+        }
 
         private void CargarGrid(orden oOrden)
         {
             int a = 0;
+            MetodosdePago();
             Buscadores bus = new Buscadores();
             List<ordenservicio> Lidservidcios = new List<ordenservicio>();
             Lidservidcios = bus.buscarlistaid(oOrden.id_orden);
@@ -177,12 +188,21 @@ namespace AplicandoAplicada
             {
                 ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == Ordenn.id_orden select q).First();
                 oestado.estado = 4;
-                oestado.fecha = System.DateTime.Now;
+                oestado.fecha_cobrado = System.DateTime.Now;
                 DBF.SaveChanges();
                 orden oorden = (from q in DBF.orden where q.id_orden == Ordenn.id_orden select q).First();
-                oorden.mpago = "Efectivo";
+                oorden.mpago = DropMetododePago.SelectedValue;
                 DBF.SaveChanges();
-                Server.Transfer("Caja.aspx");
+                ordenempleado ordenemple = new ordenempleado
+                {
+                    id_orden = oorden.id_orden,
+                    id_empleado = LogEmpleado.id_empleado,
+
+                };
+                DBF.ordenempleado.Add(ordenemple);
+                DBF.SaveChanges();
+                Server.Transfer("Default.aspx");
+
 
             }
         }

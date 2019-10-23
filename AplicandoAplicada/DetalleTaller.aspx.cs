@@ -78,7 +78,7 @@ namespace AplicandoAplicada
                     DBF.SaveChanges();
                     ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
                     oestado.estado = 1;
-                    oestado.fecha = System.DateTime.Now;   //////////////////////////////////////////////////////////
+                    oestado.fecha_espera = System.DateTime.Now;   //////////////////////////////////////////////////////////
                     DBF.SaveChanges();
                     empleado oempleado = (from q in DBF.empleado where q.id_empleado == ordenemple.id_empleado select q).First();
                     oempleado.disponibilidad = 1;

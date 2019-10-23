@@ -15,8 +15,8 @@ namespace AplicandoAplicada
     public partial class ordenempleado
     {
         public int id_ordenemple { get; set; }
-        public Nullable<int> id_empleado { get; set; }
         public Nullable<int> id_orden { get; set; }
+        public Nullable<int> id_empleado { get; set; }
     
         public virtual empleado empleado { get; set; }
         public virtual orden orden { get; set; }

@@ -70,28 +70,78 @@ namespace AplicandoAplicada
                 Session["Lstock"] = value;
             }
         }
-       
+        public DataTable dtable
+        {
+            get
+            {
+                if (Session["dtable"] == null)
+                    Session["dtable"] = new DataTable();
+                return (DataTable)Session["dtable"];
+            }
+            set
+            {
+                Session["dtable"] = value;
+            }
+        }
+        public List<servicio> LSM
+        {
+            get
+            {
+                if (Session["LSM"] == null)
+                    Session["LSM"] = new List<servicio>();
+                return (List<servicio>)Session["LSM"];
+            }
+            set
+            {
+                Session["LSM"] = value;
+            }
+        }
+        public List<servicio> LSAC
+        {
+            get
+            {
+                if (Session["LSAC"] == null)
+                    Session["LSAC"] = new List<servicio>();
+                return (List<servicio>)Session["LSAC"];
+            }
+            set
+            {
+                Session["LSAC"] = value;
+            }
+        }
+
+        public List<Cantidad> Lcantidades
+        {
+            get
+            {
+                if (Session["Lcantidades"] == null)
+                    Session["Lcantidades"] = new List<Cantidad>();
+                return (List<Cantidad>)Session["Lcantidades"];
+            }
+            set
+            {
+                Session["Lcantidades"] = value;
+            }
+        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (DropServicio.Visible == true)
-            {
-                VerGrid();
 
-            }
+           
+
             if (!IsPostBack)
-            {
+            {dtable.Clear();
                 if (LogEmpleado.id_tipo != 2)
                 {
+                     
                     Server.Transfer("Default.aspx");
+                    //VerGrid();
                 }
-               
-           
-               
-
+                if (dtable.Columns.Count == 0) {
+                    dtable.Columns.AddRange(new DataColumn[4] { new DataColumn("Detalle"), new DataColumn("Precio"), new DataColumn("Total"), new DataColumn("Cantidad") });
+                }
             }
-            
-
         }
 
        
@@ -120,7 +170,8 @@ namespace AplicandoAplicada
 
                     NoAuto.Visible = false;
                     RecargarAuto();
-                    VerGrid();
+                    servicio oservicio = new servicio();
+                    VerGrid(oservicio);
                     A1.Visible = true;
                     btnServicios.Visible = true;
                     DropServicio.Visible = true;
@@ -246,7 +297,7 @@ namespace AplicandoAplicada
             EstadoOriginal();
             DropServicio.Visible = true;
             DropTipoServicio.Visible = true;
-            VerGrid();
+            //VerGrid();
             btnServicios.Visible = true;
 
         }
@@ -330,7 +381,10 @@ namespace AplicandoAplicada
             if ((ovehiculo != null)&&(ovehiculo.id_cliente != null) && (ocliente != null) && (ovehiculo.id_cliente == ocliente.id)&&(Lservi.Count<=5)&& (Lservi.Count>=1))
             {
                 CargarOrden();
-                Server.Transfer("DetalleTaller.aspx");
+                btnpasartaller.Visible = true;
+                btnServicios.Visible = false;
+                btnfinalizar.Visible = false;
+                
 
             }
             else
@@ -365,24 +419,37 @@ namespace AplicandoAplicada
                 {
                     id_orden = oorden.id_orden,
                     estado = 0,
-                    fecha= System.DateTime.Now
+                    fecha_presupuesto= System.DateTime.Now
 
                 };
                 DBF.ordenestado.Add(oOrdenEstado);
                 DBF.SaveChanges();
-                foreach (servicio l in Lservi)
+                ordenempleado ordenemple = new ordenempleado
                 {
+                    id_orden = oorden.id_orden,
+                    id_empleado = LogEmpleado.id_empleado,
+
+                };
+                DBF.ordenempleado.Add(ordenemple);
+                DBF.SaveChanges();
+
+                foreach (servicio l in LSAC)
+                {
+                    Cantidad ocantidad = Lcantidades.Find(x => x.codigo == l.id_servicios);
                     ordenservicio ooServicio = new ordenservicio
                     {
                         id_orden = oorden.id_orden,
-                        id_servicio = l.id_servicios
-
+                        id_servicio = l.id_servicios,
+                        cantidad=ocantidad.cantidade
+                        
+                
                     };
 
                     DBF.ordenservicio.Add(ooServicio);
                     DBF.SaveChanges();
                 }
                 OrdenActual = oorden;
+                Lcantidades.Clear();
 
                
             }
@@ -442,12 +509,12 @@ namespace AplicandoAplicada
             RecargarAuto();
 
         }
-        public void VerGrid()
+        public void VerGrid(servicio oservicio)
         {
             List<servicio> Lservicios;
 
             DropServicio.Items.Clear();
-
+            if (GridView2.Rows.Count == 0) { 
             using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
                 IQueryable<servicio> lista = (from q in DBF.servicio select q);
@@ -457,10 +524,14 @@ namespace AplicandoAplicada
                 string a = txtpatente.Value;
                 vehiculo objvehiculo = bus.buscarvehiculo(a);
                 modelo objmodelo = bus.buscarmodelo(objvehiculo);
-                
 
-                Lservicios = Lservicios.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
+
                 Lservicios = Lservicios.FindAll(ser => ser.id_modelo == objmodelo.id_modelo);
+                LSM = Lservicios;
+                Lservicios = Lservicios.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
+                
+                
+                
                 foreach (servicio x in Lservicios)
                 {
                     ListItem i;
@@ -468,77 +539,99 @@ namespace AplicandoAplicada
                     DropServicio.Items.Add(i);
                 }
 
+            }
+
+
+
+            }
+            else
+            {
+                Lservi.Remove(oservicio);
+                Lservicios = Lservi.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
+                foreach (servicio x in Lservicios)
+                {
+                    ListItem i;
+                    i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                    DropServicio.Items.Add(i);
+                }
+
+            }
+
                 
                
             }
 
 
-        }
+        protected void CargarServicios(object sender, EventArgs e)
+        {
+            StockError.Visible = false;
+            StockWarning.Visible = false;
+            List<servicio> Lse = new List<servicio>();
+            List<servicio> Lservicios = new List<servicio>();
 
 
-        //protected void CargarServicios(object sender, EventArgs e)
-        //{
-        //    StockError.Visible = false;
-        //    StockWarning.Visible = false;
-        //    List<servicio> Lse = new List<servicio>();
-        //    DataTable dt = new DataTable();
-        //    Buscadores bus = new Buscadores();
-        //    dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Detalle"), new DataColumn("Precio") });
-        //    foreach (GridViewRow row in GridView1.Rows)
-        //    {
-        //        if (row.RowType == DataControlRowType.DataRow)
-        //        {
-        //            System.Web.UI.WebControls.CheckBox chkRow = (row.Cells[3].FindControl("chkRow") as System.Web.UI.WebControls.CheckBox);
-        //            if (chkRow.Checked)
-        //            {
-        //                string detalle = row.Cells[1].Text;
-        //                string precio = row.Cells[2].Text;
-        //                string id = row.Cells[0].Text;
-        //                int id_servicio = int.Parse(id);
+            if ((GridView2.Rows.Count < 5)&&(DropServicio.SelectedValue.ToString()!=""))
+            {
+                        Buscadores bus = new Buscadores();
+                        string id = DropServicio.SelectedValue.ToString();
+                        int id_servicio = int.Parse(id);
+                        servicio oservicio = bus.buscarservicio(id_servicio);
+                        Lse = LSM;
+                        foreach (servicio x in Lse)
+                        {
+                            if (id_servicio == x.id_servicios)
+                            {
+                                oservicio = x;
+                            }
+                        }
+                        Lse.Remove(oservicio);
+                        Lservi = Lse;
+                        string detalle = oservicio.detalle;
+                        string precio = oservicio.precio;
+                        string total = (double.Parse(oservicio.precio) * double.Parse(txtcantidad.Value)).ToString();
+                        string cantidad = txtcantidad.Value;
+                        Cantidad oCantidad = new Cantidad(oservicio.id_servicios, int.Parse(cantidad));
+                        Lcantidades.Add(oCantidad); 
 
-        //                List<serviciostock> Lserstock = Lserviciostock(id_servicio.ToString());
-        //                List<stock> Nstock = Lstockuso(Lserstock);
+                        List<serviciostock> Lserstock = Lserviciostock(id_servicio.ToString());
+                        List<stock> Nstock = Lstockuso(Lserstock);//revisar esto
+
                         
-        //                servicio oservicio = bus.buscarservicio(id_servicio);
-        //                Lse.Add(oservicio);
-        //                dt.Rows.Add(detalle, precio);
-        //                foreach (stock ostock in Nstock)
-        //                {
-        //                    Lstock.Add(ostock);
-        //                    if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
-        //                    {
-        //                        StockError.Visible = true;
-        //                        Label1.Text = "¡ATENCION! EL STOCK ES MENOR AL MINIMO: " + ostock.detalle;
+                        LSAC.Add(oservicio);
+                        dtable.Rows.Add(detalle,precio,total,cantidad);
+                        lblprecio.Visible = true;
+                        int a = int.Parse(lblprecio.Text) + int.Parse(total);
+                        lblprecio.Text = a.ToString();
+
+                        foreach (stock ostock in Nstock)
+                        {
+                            Lstock.Add(ostock);
+                            if (int.Parse(ostock.cantidad) <= int.Parse(ostock.minimo))
+                            {
+                                StockError.Visible = true;
+                                Label1.Text = "¡ATENCION! EL STOCK ES MENOR AL MINIMO: " + ostock.detalle;
 
 
-        //                    }
-        //                    if ((int.Parse(ostock.cantidad) >= int.Parse(ostock.minimo)) && (int.Parse(ostock.cantidad) <= (int.Parse(ostock.minimo)+5))&&(StockError.Visible==false))
-        //                    {
-        //                        StockWarning.Visible = true; //Aca alerta queda poco stock Queda restar
-        //                        Label2.Text = "¡ATENCION! EL STOCK ESTA CERCANO AL MINIMO: " + ostock.detalle;
-
-                  
-        //                    }
-        //                }
-        //            }
-
-        //        }
-        //    }
-        //    if (Lse.Count <= 5)
-        //    {
-        //        NoAuto.Visible = false;
-        //        Lservi = Lse;
-        //        GridView2.DataSource = dt;
-        //        GridView2.DataBind();
-        //    }else{
-        //        NoAuto.Visible = true;
-        //        Label3.Text = "No ingrese mas de 5 servicios";
-        //    }
-        //}
-
-           
-
-
+                            }
+                            if ((int.Parse(ostock.cantidad) >= int.Parse(ostock.minimo)) && (int.Parse(ostock.cantidad) <= (int.Parse(ostock.minimo) + 5)) && (StockError.Visible == false))
+                            {
+                                StockWarning.Visible = true; //Aca alerta queda poco stock Queda restar
+                                Label2.Text = "¡ATENCION! EL STOCK ESTA CERCANO AL MINIMO: " + ostock.detalle;
+                            }
+                        }
+                NoAuto.Visible = false;
+                //Lservi = Lse;
+                GridView2.DataSource = dtable;
+                GridView2.DataBind();
+                VerGrid(oservicio);
+            
+            }
+            else
+            {
+                NoAuto.Visible = true;
+                Label3.Text = "No ingrese mas de 5 servicios";
+            }
+                }
         
 
         protected void Cancelar(object sender, EventArgs e)
@@ -548,10 +641,7 @@ namespace AplicandoAplicada
         }
        
 
-
-
-
-            public List<serviciostock> Lserviciostock(String id )
+        public List<serviciostock> Lserviciostock(String id )
             {
                 Buscadores bus = new Buscadores();
                 List<serviciostock> Lserviciostocks =bus.Lstockservi();
@@ -583,10 +673,66 @@ namespace AplicandoAplicada
             return stockactivo;
 
         }
-        
-        
 
-        
+        protected void DropTipoServicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            servicio oservicio = new servicio();
+            VerGrid(oservicio);
+        }
+
+
+
+        protected void btnpasarataller_ServerClick(object sender, EventArgs e)
+        {
+            if ((DropMecanicosDispo.SelectedValue.ToString() != ""))
+            {
+                using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+                {
+
+                    ordenempleado ordenemple = new ordenempleado
+                    {
+                        id_orden = OrdenActual.id_orden,
+                        id_empleado = int.Parse(DropMecanicosDispo.SelectedValue.ToString())
+
+                    };
+
+                    DBF.ordenempleado.Add(ordenemple);
+                    DBF.SaveChanges();
+                    ordenestado oestado = (from q in DBF.ordenestado where q.id_orden == OrdenActual.id_orden select q).First();
+                    oestado.estado = 1;
+                    oestado.fecha_espera = System.DateTime.Now;   //////////////////////////////////////////////////////////
+                    DBF.SaveChanges();
+                    empleado oempleado = (from q in DBF.empleado where q.id_empleado == ordenemple.id_empleado select q).First();
+                    oempleado.disponibilidad = 1;
+                    DBF.SaveChanges();
+                    foreach (stock ostock in Lstock)
+                    {
+                        stock Stocko = new stock();
+                        Stocko = (from q in DBF.stock where q.id_stock == ostock.id_stock select q).First();
+                        Stocko.cantidad = (int.Parse(Stocko.cantidad) - 1).ToString();
+                        DBF.SaveChanges();
+                        //restar dependiendo la cantidad del servicio
+                    }
+                    OrdenActual = null;
+                    Lstock = null;
+                    Server.Transfer("Default.aspx");
+
+                }
+            }
+            else
+            {
+                Server.Transfer("AltaDetalle.aspx");
+            }
+        }
+
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string w = GridView2.SelectedRow.Cells[1].Text;
+            foreach (DataGridViewRow Row in GridView2.Rows)
+            {
+                if(w==Row.Selected)
+            }  
+        }
 
         
     }

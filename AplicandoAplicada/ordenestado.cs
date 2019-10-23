@@ -17,7 +17,12 @@ namespace AplicandoAplicada
         public int id_estado { get; set; }
         public int id_orden { get; set; }
         public int estado { get; set; }
-        public System.DateTime fecha { get; set; }
+        public Nullable<System.DateTime> fecha_presupuesto { get; set; }
+        public Nullable<System.DateTime> fecha_espera { get; set; }
+        public Nullable<System.DateTime> fecha_mecanico { get; set; }
+        public Nullable<System.DateTime> fecha_servicefin { get; set; }
+        public Nullable<System.DateTime> fecha_cobrado { get; set; }
+        public Nullable<System.DateTime> fecha_entregado { get; set; }
     
         public virtual orden orden { get; set; }
     }

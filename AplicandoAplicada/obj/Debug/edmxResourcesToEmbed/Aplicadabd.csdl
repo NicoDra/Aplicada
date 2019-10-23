@@ -62,11 +62,11 @@
     <Key>
       <PropertyRef Name="id_ordenemple" />
     </Key>
-    <Property Name="id_ordenemple" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_empleado" Type="Int32" />
+    <Property Name="id_ordenemple" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
     <Property Name="id_orden" Type="Int32" />
     <NavigationProperty Name="empleado" Relationship="Self.FK_ordenempleado_empleado" FromRole="ordenempleado" ToRole="empleado" />
     <NavigationProperty Name="orden" Relationship="Self.FK_ordenempleado_orden" FromRole="ordenempleado" ToRole="orden" />
+    <Property Name="id_empleado" Type="Int32" />
   </EntityType>
   <EntityType Name="ordenestado">
     <Key>
@@ -75,8 +75,13 @@
     <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="id_orden" Type="Int32" Nullable="false" />
     <Property Name="estado" Type="Int32" Nullable="false" />
-    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="orden" Relationship="Self.FK_ordenestado_orden" FromRole="ordenestado" ToRole="orden" />
+    <Property Name="fecha_presupuesto" Type="DateTime" Precision="0" />
+    <Property Name="fecha_espera" Type="DateTime" Precision="0" />
+    <Property Name="fecha_mecanico" Type="DateTime" Precision="0" />
+    <Property Name="fecha_servicefin" Type="DateTime" Precision="0" />
+    <Property Name="fecha_cobrado" Type="DateTime" Precision="0" />
+    <Property Name="fecha_entregado" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="ordenservicio">
     <Key>
@@ -87,6 +92,7 @@
     <Property Name="id_servicio" Type="Int32" Nullable="false" />
     <NavigationProperty Name="orden" Relationship="Self.FK_ordenservicio_orden" FromRole="ordenservicio" ToRole="orden" />
     <NavigationProperty Name="servicio" Relationship="Self.FK_ordenservicio_servicio" FromRole="ordenservicio" ToRole="servicio" />
+    <Property Name="cantidad" Type="Int32" />
   </EntityType>
   <EntityType Name="servicio">
     <Key>
@@ -189,8 +195,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ordenempleado_empleado">
-    <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
-    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <End Type="Self.empleado" Multiplicity="0..1" Role="empleado" />
+    <End Type="Self.ordenempleado" Multiplicity="*" Role="ordenempleado" />
     <ReferentialConstraint>
       <Principal Role="empleado">
         <PropertyRef Name="id_empleado" />
@@ -249,8 +255,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ordenempleado_orden">
-    <End Role="orden" Type="Self.orden" Multiplicity="0..1" />
-    <End Role="ordenempleado" Type="Self.ordenempleado" Multiplicity="*" />
+    <End Type="Self.orden" Multiplicity="0..1" Role="orden" />
+    <End Type="Self.ordenempleado" Multiplicity="*" Role="ordenempleado" />
     <ReferentialConstraint>
       <Principal Role="orden">
         <PropertyRef Name="id_orden" />
@@ -357,8 +363,8 @@
       <End Role="empleado" EntitySet="empleado" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenempleado_empleado" Association="Self.FK_ordenempleado_empleado">
-      <End Role="empleado" EntitySet="empleado" />
-      <End Role="ordenempleado" EntitySet="ordenempleado" />
+      <End EntitySet="empleado" Role="empleado" />
+      <End EntitySet="ordenempleado" Role="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_modelo_marca" Association="Self.FK_modelo_marca">
       <End Role="marca" EntitySet="marca" />
@@ -377,8 +383,8 @@
       <End Role="orden" EntitySet="orden" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenempleado_orden" Association="Self.FK_ordenempleado_orden">
-      <End Role="orden" EntitySet="orden" />
-      <End Role="ordenempleado" EntitySet="ordenempleado" />
+      <End EntitySet="orden" Role="orden" />
+      <End EntitySet="ordenempleado" Role="ordenempleado" />
     </AssociationSet>
     <AssociationSet Name="FK_ordenestado_orden" Association="Self.FK_ordenestado_orden">
       <End Role="orden" EntitySet="orden" />

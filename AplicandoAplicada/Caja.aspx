@@ -75,9 +75,14 @@
 
                         </asp:GridView>
                       </div>		
+                    
 
 				</div>
+                <div class="datos" id="divmetodo" runat="server" visible="false"> 
 
+					    <asp:Label ID="Label1" runat="server" Text="METODO DE PAGO: "><asp:DropDownList ID="DropMetododePago" runat="server"></asp:DropDownList></asp:Label>	
+                        		
+				</div>
 
 			</div>
 

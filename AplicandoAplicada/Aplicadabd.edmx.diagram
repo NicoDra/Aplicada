@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b25f4f7edc5f4b468eb72cc7cfff4290" Name="Diagram1">
+      <Diagram DiagramId="b25f4f7edc5f4b468eb72cc7cfff4290" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="aplicadaBDModel.cliente" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.empleado" Width="1.5" PointX="10.5" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.marca" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.modelo" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.orden" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="aplicadaBDModel.ordenempleado" Width="1.5" PointX="12.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aplicadaBDModel.ordenempleado" PointX="15.75" PointY="7.625" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.ordenestado" Width="1.5" PointX="12.75" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.ordenservicio" Width="1.5" PointX="12.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="aplicadaBDModel.servicio" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
@@ -22,12 +22,12 @@
         <EntityTypeShape EntityType="aplicadaBDModel.vehiculo" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="aplicadaBDModel.FK_vehiculo_cliente" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_empleado_tipo" ManuallyRouted="false" />
-        <AssociationConnector Association="aplicadaBDModel.FK_ordenempleado_empleado" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="aplicadaBDModel.FK_ordenempleado_empleado" />
         <AssociationConnector Association="aplicadaBDModel.FK_modelo_marca" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_servicio_modelo" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_vehiculo_modelo" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_orden_vehiculo" ManuallyRouted="false" />
-        <AssociationConnector Association="aplicadaBDModel.FK_ordenempleado_orden" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="aplicadaBDModel.FK_ordenempleado_orden" />
         <AssociationConnector Association="aplicadaBDModel.FK_ordenestado_orden" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_ordenservicio_orden" ManuallyRouted="false" />
         <AssociationConnector Association="aplicadaBDModel.FK_ordenservicio_servicio" ManuallyRouted="false" />

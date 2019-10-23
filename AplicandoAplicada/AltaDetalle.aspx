@@ -26,24 +26,30 @@
 
 		<div class="contenedorServicios">
            
-            <div class="divaux">
-                <asp:DropDownList ID="DropTipoServicio" CssClass="modelito" runat="server" DataSourceID="Tiposdeservicios" DataTextField="tipodeservicio" DataValueField="id" Visible="true" AutoPostBack="True"></asp:DropDownList>
+            <div class="divaux drop">
+                <asp:DropDownList ID="DropTipoServicio" CssClass="modelito" runat="server" DataSourceID="Tiposdeservicios" DataTextField="tipodeservicio" DataValueField="id" Visible="true" AutoPostBack="True" OnSelectedIndexChanged="DropTipoServicio_SelectedIndexChanged"></asp:DropDownList>
                 <asp:EntityDataSource ID="Tiposdeservicios" runat="server" ConnectionString="name=aplicadaBDEntities2" DefaultContainerName="aplicadaBDEntities2" EnableFlattening="False" EntitySetName="tiposervicio" EntityTypeFilter="tiposervicio" Select="it.[id], it.[tipodeservicio]"></asp:EntityDataSource>
+                <br />
+                <br />
                 <asp:DropDownList ID="DropServicio" CssClass="modelito" runat="server" Visible="false"></asp:DropDownList>
-               
+               <input type="number" runat="server" id="txtcantidad" value="1"/>
                 
             </div>
 
 
-        <a href="#" runat="server" visible="false" class="guardarCambios" id="btnServicios" >Guardar</a>
+        <a href="#" runat="server" visible="false" class="guardarCambios" id="btnServicios" onserverclick="CargarServicios">Guardar</a>
 
 
             <div class="divaux">
-                <asp:GridView ID="GridView2" CssClass="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333">
+                <asp:GridView ID="GridView2" CssClass="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:BoundField DataField="detalle" HeaderText="Detalle" /> 
                         <asp:BoundField DataField="precio" HeaderText="Precio ($)" />
+                        <asp:BoundField DataField="total" HeaderText="Total ($)" />
+                        <asp:BoundField DataField="cantidad" HeaderText="Cantidad" />
+                        
+                        <asp:CommandField SelectText="Eliminar" ButtonType="Button" ShowSelectButton="true" />
                         
                     </Columns>
 
@@ -59,9 +65,12 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                
                 </asp:GridView>
+
+                
+
             </div>
-
-
+            <asp:Label ID="lblpreciototal" runat="server" Text="Precio Total"><asp:Label ID="lblprecio" runat="server" Text="0" Visible="false"></asp:Label></asp:Label>
+            <a href="#" class="guardarCambios" runat="server" onserverclick="Avanzar" id="btnfinalizar">Finalizar Presupuesto</a>
 		</div>		
 
 		<div class="contenedor2">
@@ -126,9 +135,10 @@
 	<div class="btnGuardar">
 		
 		<a href="#" class="guardarCambios" runat="server" onserverclick="Cancelar">Cancelar</a>
-		<a href="#" class="guardarCambios">Imprimir</a>
-        
-		<a href="#" class="guardarCambios" runat="server" onserverclick="Avanzar">Pasar a taller</a>
+		<asp:DropDownList ID="DropMecanicosDispo" runat="server" DataSourceID="DMecanicos" DataTextField="nombreyapellido" DataValueField="id_empleado" CssClass="select" ></asp:DropDownList>
+         <asp:SqlDataSource ID="DMecanicos" runat="server" ConnectionString="<%$ ConnectionStrings:aplicadaBDConnectionString %>" SelectCommand="SELECT [nombreyapellido], [id_empleado], [id_tipo] FROM [empleado] WHERE ([id_tipo] = 1) AND ([disponibilidad] = 0)"></asp:SqlDataSource>
+        <a href="#" class="guardarCambios" runat="server"  id="btnpasartaller" visible="false" onserverclick="btnpasarataller_ServerClick">Pasar a taller</a>
+		
 
 	</div>
 
