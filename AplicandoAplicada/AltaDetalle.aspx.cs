@@ -175,6 +175,10 @@ namespace AplicandoAplicada
                     A1.Visible = true;
                     btnServicios.Visible = true;
                     DropServicio.Visible = true;
+                    txtcantidad.Visible = true;
+                    lblpreciototal.Visible = true;
+                    btnfinalizar.Visible = true;
+                    
 
                     }
                     else
@@ -297,8 +301,11 @@ namespace AplicandoAplicada
             EstadoOriginal();
             DropServicio.Visible = true;
             DropTipoServicio.Visible = true;
-            //VerGrid();
+            
             btnServicios.Visible = true;
+            txtcantidad.Visible = true;
+            lblpreciototal.Visible = true;
+            btnfinalizar.Visible = true;
 
         }
 
@@ -499,7 +506,7 @@ namespace AplicandoAplicada
             txtmodelo.Visible = true;
             txtmarca.Visible = true;
             Dmodelo.Visible = false;
-            Dmodelo.Visible = false;
+            Dmarca.Visible = false;
             txtapellido.Disabled = true;
             txtnombre.Disabled = true;
             txttelefono.Disabled = true;
@@ -507,6 +514,8 @@ namespace AplicandoAplicada
             txtaño.Disabled = true;
 
             RecargarAuto();
+            servicio oservicio = new servicio();
+            VerGrid(oservicio);
 
         }
         public void VerGrid(servicio oservicio)
@@ -546,6 +555,10 @@ namespace AplicandoAplicada
             }
             else
             {
+                if (oservicio.precio!="1")
+                {
+
+                
                 Lservi.Remove(oservicio);
                 Lservicios = Lservi.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
                 foreach (servicio x in Lservicios)
@@ -553,6 +566,26 @@ namespace AplicandoAplicada
                     ListItem i;
                     i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
                     DropServicio.Items.Add(i);
+                }
+
+                }
+                else
+                {
+                    using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+                    {
+                        IQueryable<servicio> lista = (from q in DBF.servicio select q);
+                        Lservicios = lista.ToList();
+                        oservicio = Lservicios.Find(x => x.id_servicios == oservicio.id_servicios);
+
+                    }
+                    Lservi.Add(oservicio);
+                    Lservicios = Lservi.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
+                    foreach (servicio x in Lservicios)
+                    {
+                        ListItem i;
+                        i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                        DropServicio.Items.Add(i);
+                    }
                 }
 
             }
@@ -727,11 +760,44 @@ namespace AplicandoAplicada
 
         protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string w = GridView2.SelectedRow.Cells[1].Text;
-            foreach (DataGridViewRow Row in GridView2.Rows)
+            string Detalle = GridView2.SelectedRow.Cells[0].Text;
+            string total = GridView2.SelectedRow.Cells[2].Text;
+            int w = GridView2.SelectedRow.RowIndex;
+            dtable.Rows.RemoveAt(w);
+            GridView2.DataSource = dtable;
+            GridView2.DataBind();
+            List<servicio> Lservicios;
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
             {
-                if(w==Row.Selected)
-            }  
+                IQueryable<servicio> lista = (from q in DBF.servicio select q);
+                Lservicios = lista.ToList();
+                Buscadores bus = new Buscadores();
+                string a = txtpatente.Value;
+                vehiculo objvehiculo = bus.buscarvehiculo(a);
+                modelo objmodelo = bus.buscarmodelo(objvehiculo);
+                Lservicios = Lservicios.FindAll(ser => ser.id_modelo == objmodelo.id_modelo);
+                servicio oservicio = new servicio();
+                oservicio = Lservicios.Find(ser => ser.detalle == Detalle);
+                int z = int.Parse(lblprecio.Text) - int.Parse(total);
+                lblprecio.Text = z.ToString();
+                LSAC.Remove(oservicio);
+                List<serviciostock> Lserstock = Lserviciostock(oservicio.id_servicios.ToString());
+                List<stock> Nstock = Lstockuso(Lserstock);
+                List<stock> Copia = Lstock;
+                    foreach (stock ostock in Nstock)
+                    {
+                        stock oostock = Lstock.Find(x => x.id_stock == ostock.id_stock);
+                        Lstock.Remove(oostock);
+                    }
+
+                
+                
+
+                oservicio.precio = "1";
+                
+                VerGrid(oservicio);
+                //Queda remover la lista de stock 
+            }
         }
 
         

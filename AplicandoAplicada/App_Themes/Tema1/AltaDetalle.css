@@ -148,6 +148,16 @@
         border-radius: 6px;
     }
 
+.modelitoo{
+
+    width: 20%;
+    font-size: 18px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
 .contenedor1 .contenedorServicios {
     display: flex;
     align-items: center;
