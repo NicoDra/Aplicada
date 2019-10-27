@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -130,11 +131,25 @@ namespace AplicandoAplicada
         {
             StockError.Visible = false;
             StockWarning.Visible = false;
-            
-            Buscadores bus = new Buscadores();
-            List<ordenservicio> Lidservidcios = new List<ordenservicio>();
+
+            Buscadores bus = new Buscadores(); List<ordenservicio> Lidservidcios = new List<ordenservicio>();
             Lidservidcios = bus.buscarlistaid(oOrden.id_orden);
             List<servicio> Lservicios = ObtenerServicios(Lidservidcios);
+            DataTable dtable = new DataTable();
+            dtable.Columns.AddRange(new DataColumn[4] { new DataColumn("Detalle"), new DataColumn("Precio"), new DataColumn("Total"), new DataColumn("Cantidad") });
+            int preciototal = 0;
+            foreach (ordenservicio o in Lidservidcios)
+            {
+
+                servicio oservicio = Lservicios.Find(x => x.id_servicios == o.id_servicio);
+                int cantidad = o.cantidad ?? default(int);
+                string total = (double.Parse(oservicio.precio) * Convert.ToDouble(cantidad)).ToString();
+                dtable.Rows.Add(oservicio.detalle, oservicio.precio, total, o.cantidad);
+                preciototal = preciototal + int.Parse(total);
+            }
+            //lblprecio.Text = preciototal.ToString(); <--- poner label para el total
+            
+            Lservicios = ObtenerServicios(Lidservidcios);
             List<serviciostock> Lserstock = Lserviciostock(Lservicios);
             List<stock> Nstock = Lstockuso(Lserstock);
             foreach (stock ostock in Nstock)
@@ -153,9 +168,9 @@ namespace AplicandoAplicada
 
                 }
             }
-            
-            
-            GridView2.DataSource = Lservicios;
+
+
+            GridView2.DataSource = dtable;
             GridView2.DataBind();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -56,7 +57,7 @@ namespace AplicandoAplicada
             {
                 Server.Transfer("Default.aspx");
             }
-
+            fecha.Text = DateTime.Now.ToString("dd-MM-yyyy");
             Buscadores bus = new Buscadores();
             List<ordenestado> Lordenestado = bus.buscarListOrdenEstado(3);
             List<orden> Lorden = bus.buscarordeestado(Lordenestado);
@@ -87,10 +88,13 @@ namespace AplicandoAplicada
                 if (int.Parse(txtorden.Value) == oOrden.id_orden)
                 {
                     Ordenn = oOrden;
-                    lblpatente.Text = "PATENTE: " + oOrden.vehiculo.patente;
+                    lblpatente.Text = oOrden.vehiculo.patente;
+                    cliente objcliente = bus.ocliente(oOrden.vehiculo);
+                    NTitular.Text = objcliente.nombre;
+                    DNI.Text = objcliente.dni;
                     modelo omodelo = bus.buscarmodelo(oOrden.vehiculo);
-                    lblmodelo.Text = "MODELO: "+omodelo.nombre;
-                    
+                    lblmodelo.Text =omodelo.nombre;
+                    NOrden.Text = "N°Orden" + oOrden.id_orden.ToString();
                     CargarGrid(oOrden);
 
                 }
@@ -119,11 +123,14 @@ namespace AplicandoAplicada
                     if (txtpatente.Value == oOrden.vehiculo.patente)
                     {
                         Ordenn = oOrden;
-                        lblpatente.Text = "PATENTE: " + oOrden.vehiculo.patente;
+                        lblpatente.Text = oOrden.vehiculo.patente;
+                        cliente objcliente = bus.ocliente(oOrden.vehiculo);
+                        NTitular.Text = objcliente.nombre;
+                        DNI.Text = objcliente.dni;
                         modelo omodelo = bus.buscarmodelo(oOrden.vehiculo);
-                        lblmodelo.Text = "MODELO: " + omodelo.nombre;
+                        lblmodelo.Text = omodelo.nombre;
+                        NOrden.Text = "N°Orden"+oOrden.id_orden.ToString();
                         CargarGrid(oOrden);
-
 
 
                     }
@@ -158,12 +165,25 @@ namespace AplicandoAplicada
             List<ordenservicio> Lidservidcios = new List<ordenservicio>();
             Lidservidcios = bus.buscarlistaid(oOrden.id_orden);
             List<servicio> Lservicios = ObtenerServicios(Lidservidcios);
-            foreach (servicio x in Lservicios)
+            DataTable dtable = new DataTable();
+            dtable.Columns.AddRange(new DataColumn[4] { new DataColumn("Detalle"), new DataColumn("Precio"), new DataColumn("Total"), new DataColumn("Cantidad") });
+            int preciototal =0;
+            foreach (ordenservicio o in Lidservidcios)
             {
-                a = a + int.Parse(x.precio);
+
+                servicio oservicio = Lservicios.Find(x => x.id_servicios == o.id_servicio);
+                int cantidad = o.cantidad ?? default(int); 
+                string total = (double.Parse(oservicio.precio) * Convert.ToDouble(cantidad)).ToString();
+                dtable.Rows.Add(oservicio.detalle, oservicio.precio,total,o.cantidad);
+                preciototal = preciototal + int.Parse(total);
             }
-            lblprecio.Text = "PRECIO TOTAL: " + a;
-            GridView1.DataSource = Lservicios;
+            //foreach (servicio x in Lservicios)
+            //{
+            //    a = a + int.Parse(x.precio);
+            //}
+            lblprecio.Text = preciototal.ToString();
+            //GridView1.DataSource = Lservicios;
+            GridView1.DataSource = dtable;
             GridView1.DataBind();
         }
 

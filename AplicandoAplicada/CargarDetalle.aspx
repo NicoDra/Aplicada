@@ -31,37 +31,61 @@
 
             <div class="contenedor1">
 
-                <div class="contenedorServicios">
            
                     <div class="divaux">
 
-                        <asp:GridView ID="GridView2" CssClass="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CssClass="gridTaller" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
 
-                            <AlternatingRowStyle BackColor="White" />
+                        <Columns>
 
-                            <Columns>
+                            <asp:BoundField DataField="detalle" HeaderText="Detalle" >
 
-                                <asp:BoundField DataField="detalle" HeaderText="Detalle" /> 
-                                <asp:BoundField DataField="precio" HeaderText="Precio ($)" />
-                        
-                            </Columns>
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
 
-                            <EditRowStyle BackColor="#2461BF" />
-                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#EFF3FB" />
-                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-               
-                        </asp:GridView>
+                            </asp:BoundField>
 
-                    </div>
+                            <asp:BoundField DataField="precio" HeaderText="Precio ($)" > 
 
-                </div>		
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+                            <asp:BoundField DataField="total" HeaderText="Total ($)" >
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+                            <asp:BoundField DataField="cantidad" HeaderText="Cantidad" >
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+
+                        </Columns>
+
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                        <SortedDescendingHeaderStyle BackColor="#242121" />
+
+                    </asp:GridView>
+
+                    </div></div>
+
+           		
+
+
+
+                </div>
 
                 <div class="contenedor2">
 			

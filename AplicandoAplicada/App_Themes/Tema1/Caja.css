@@ -54,12 +54,15 @@
 	-o-flex-direction: column;
 	flex-direction: column;
 
-	justify-content: space-around;
 	-ms-align-items: center;
 	align-items: center;
-	
+
 	height: 600px;
-	width: 100%;
+	width: 60%;
+	border: 2px solid #000;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
 }
 
 .contenedorCaja .orden .datos{
@@ -97,9 +100,60 @@
 	justify-content: space-around;
 }
 
-.contenedorCaja .orden .datos{
+.orden .cabecera{
 
-	
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
+
+.orden .datosFecha{
+
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 30px;
+}
+
+.orden .datosPropietarios{
+
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: space-around;
+	margin-bottom: 30px;
+}
+
+.orden .metodosPago{
+
+
+	width: 100%;
+}
+
+.orden .metodosPago .modelito{
+
+		width: 100%;
+        font-size: 18px;
+        padding: 10px 8px 10px 14px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 6px;
 }
 
 .contenedorCaja .btnTaller{

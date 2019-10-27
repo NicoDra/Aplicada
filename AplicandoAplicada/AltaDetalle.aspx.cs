@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 
 
@@ -167,7 +170,7 @@ namespace AplicandoAplicada
                     }
                     if ((orden==null)||(ordenestado.estado == null) || (ordenestado.estado == 4))
                     {
-
+                        PDFESTADOCERO();
                     NoAuto.Visible = false;
                     RecargarAuto();
                     servicio oservicio = new servicio();
@@ -543,8 +546,7 @@ namespace AplicandoAplicada
                 
                 foreach (servicio x in Lservicios)
                 {
-                    ListItem i;
-                    i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                    System.Web.UI.WebControls.ListItem i = new System.Web.UI.WebControls.ListItem(x.detalle.ToString(), x.id_servicios.ToString());
                     DropServicio.Items.Add(i);
                 }
 
@@ -563,8 +565,8 @@ namespace AplicandoAplicada
                 Lservicios = Lservi.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
                 foreach (servicio x in Lservicios)
                 {
-                    ListItem i;
-                    i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                    System.Web.UI.WebControls.ListItem i;
+                    i = new System.Web.UI.WebControls.ListItem(x.detalle.ToString(), x.id_servicios.ToString());
                     DropServicio.Items.Add(i);
                 }
 
@@ -582,8 +584,8 @@ namespace AplicandoAplicada
                     Lservicios = Lservi.FindAll(servicio => servicio.id_tipo == int.Parse(DropTipoServicio.SelectedValue));
                     foreach (servicio x in Lservicios)
                     {
-                        ListItem i;
-                        i = new ListItem(x.detalle.ToString(), x.id_servicios.ToString());
+                        System.Web.UI.WebControls.ListItem i;
+                        i = new System.Web.UI.WebControls.ListItem(x.detalle.ToString(), x.id_servicios.ToString());
                         DropServicio.Items.Add(i);
                     }
                 }
@@ -601,7 +603,8 @@ namespace AplicandoAplicada
             StockWarning.Visible = false;
             List<servicio> Lse = new List<servicio>();
             List<servicio> Lservicios = new List<servicio>();
-
+            lblpreciototal.Visible = true;
+            lblprecio.Visible = true;
 
             if ((GridView2.Rows.Count < 5)&&(DropServicio.SelectedValue.ToString()!=""))
             {
@@ -780,6 +783,7 @@ namespace AplicandoAplicada
                 oservicio = Lservicios.Find(ser => ser.detalle == Detalle);
                 int z = int.Parse(lblprecio.Text) - int.Parse(total);
                 lblprecio.Text = z.ToString();
+                oservicio = LSAC.Find(ser => ser.id_servicios == oservicio.id_servicios);
                 LSAC.Remove(oservicio);
                 List<serviciostock> Lserstock = Lserviciostock(oservicio.id_servicios.ToString());
                 List<stock> Nstock = Lstockuso(Lserstock);
@@ -798,6 +802,19 @@ namespace AplicandoAplicada
                 VerGrid(oservicio);
                 //Queda remover la lista de stock 
             }
+        }
+
+        public void PDFESTADOCERO()
+        {
+            var doc = new iTextSharp.text.Document();
+            string path = Server.MapPath("~");
+           PdfWriter.GetInstance(doc,new FileStream(path+"/Presupuesto.pdf",FileMode.Create));
+             doc.Open();
+            doc.Add(new Paragraph("Aca empiezan los reportes. MI MEJOR SUPER PODER ES ESTAR BORRACHO"));
+            doc.Close();
+            Page.ClientScript.RegisterStartupScript(this.GetType(),"OpenWindow","window.open('Presupuesto.pdf','_newtab');",true);
+            //Response.Redirect("Presupuesto.pdf");
+
         }
 
         

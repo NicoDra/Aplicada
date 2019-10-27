@@ -32,28 +32,66 @@
                 <br />
                 <br />
                 <asp:DropDownList ID="DropServicio" CssClass="modelito" runat="server" Visible="false"></asp:DropDownList>
+                <br />
+                <br />
                <input type="number" runat="server" id="txtcantidad" value="1" visible="false"/>
+                <br />
+                <br />
                 
             </div>
 
 
         <a href="#" runat="server" visible="false" class="guardarCambios" id="btnServicios" onserverclick="CargarServicios">Guardar</a>
+            <br />
+            <br />
 
 
             <div class="divaux">
                 <asp:GridView ID="GridView2" CssClass="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:BoundField DataField="detalle" HeaderText="Detalle" /> 
-                        <asp:BoundField DataField="precio" HeaderText="Precio ($)" />
-                        <asp:BoundField DataField="total" HeaderText="Total ($)" />
-                        <asp:BoundField DataField="cantidad" HeaderText="Cantidad" />
+                            <asp:BoundField DataField="detalle" HeaderText="Detalle" >
+
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+
+                            <asp:BoundField DataField="precio" HeaderText="Precio ($)" > 
+
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+                            <asp:BoundField DataField="total" HeaderText="Total ($)" >
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+                            <asp:BoundField DataField="cantidad" HeaderText="Cantidad" >
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>
+
+                        
                         
                         <asp:CommandField SelectText="Eliminar" ButtonType="Button" ShowSelectButton="true" />
                         
                     </Columns>
-
-                    <EditRowStyle BackColor="#2461BF" />
+                    <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                        <SortedDescendingHeaderStyle BackColor="#242121" />
+                    <%--<EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
@@ -62,17 +100,20 @@
                     <SortedAscendingCellStyle BackColor="#F5F7FB" />
                     <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                     <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                    <SortedDescendingHeaderStyle BackColor="#4870BE" />--%>
                
                 </asp:GridView>
 
                 
-
             </div>
-            <asp:Label ID="lblpreciototal" runat="server" Text="Precio Total" Visible="false">
+            <br />
+            <br />
+            <asp:Label ID="lblpreciototal" runat="server" Text="Precio Total: ">
                 <asp:Label ID="lblprecio" runat="server" Text="0" Visible="false"></asp:Label>
 
             </asp:Label>
+            <br />
+            <br />
             <a href="#" class="guardarCambios" runat="server" onserverclick="Avanzar" id="btnfinalizar" visible="false">Finalizar Presupuesto</a>
 		</div>		
 
