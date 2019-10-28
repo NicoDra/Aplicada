@@ -94,6 +94,24 @@ namespace AplicandoAplicada {
         protected global::System.Web.UI.WebControls.GridView GridView2;
         
         /// <summary>
+        /// Control lblpreciototal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpreciototal;
+        
+        /// <summary>
+        /// Control lblprecio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblprecio;
+        
+        /// <summary>
         /// Control txtpatente.
         /// </summary>
         /// <remarks>

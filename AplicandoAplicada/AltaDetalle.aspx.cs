@@ -170,7 +170,7 @@ namespace AplicandoAplicada
                     }
                     if ((orden==null)||(ordenestado.estado == null) || (ordenestado.estado == 4))
                     {
-                        PDFESTADOCERO();
+                        
                     NoAuto.Visible = false;
                     RecargarAuto();
                     servicio oservicio = new servicio();
@@ -380,7 +380,7 @@ namespace AplicandoAplicada
 
         protected void Avanzar(object sender, EventArgs e)
         {
-            if ((txtpatente.Value != "") && (txtdni.Value != "") && (StockError.Visible=true))
+            if ((txtpatente.Value != "") && (txtdni.Value != "") && (StockError.Visible!=true))
             {
 
             Buscadores bus = new Buscadores();
@@ -388,31 +388,31 @@ namespace AplicandoAplicada
             vehiculo ovehiculo = bus.buscarvehiculo(txtpatente.Value);
             cliente oclientes = bus.ocliente(ovehiculo);
 
-            if ((ovehiculo != null)&&(ovehiculo.id_cliente != null) && (ocliente != null) && (ovehiculo.id_cliente == ocliente.id)&&(Lservi.Count<=5)&& (Lservi.Count>=1))
+            if ((ovehiculo != null)&&(ovehiculo.id_cliente != null) && (ocliente != null) && (ovehiculo.id_cliente == ocliente.id)&&(LSAC.Count<=5)&& (LSAC.Count>=1))
             {
                 CargarOrden();
+                PDFESTADOCERO();
                 btnpasartaller.Visible = true;
                 btnServicios.Visible = false;
                 btnfinalizar.Visible = false;
-                
-
-            }
-            else
-            {
-                Server.Transfer("AltaDetalle.aspx");
-
-            }
-
             }
             else
             {
                 Server.Transfer("AltaDetalle.aspx");
             }
 
+            }
+            else
+            {
+                Server.Transfer("AltaDetalle.aspx");
+            }
         }
 
         private void CargarOrden()
         {
+            A1.Visible = false;
+            btnAgregarcliente.Visible = false;
+            btnGuardar.Visible = false;
             Buscadores bus = new Buscadores();
             vehiculo ovehiculo = bus.buscarvehiculo(txtpatente.Value);
             using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
@@ -720,7 +720,7 @@ namespace AplicandoAplicada
 
         protected void btnpasarataller_ServerClick(object sender, EventArgs e)
         {
-            if ((DropMecanicosDispo.SelectedValue.ToString() != ""))
+            if ((DropMecanicosDispo.SelectedValue.ToString() != "" && StockError.Visible==false))
             {
                 using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
                 {
@@ -806,11 +806,23 @@ namespace AplicandoAplicada
 
         public void PDFESTADOCERO()
         {
-            var doc = new iTextSharp.text.Document();
+            var doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
             string path = Server.MapPath("~");
            PdfWriter.GetInstance(doc,new FileStream(path+"/Presupuesto.pdf",FileMode.Create));
              doc.Open();
-            doc.Add(new Paragraph("Aca empiezan los reportes. MI MEJOR SUPER PODER ES ESTAR BORRACHO"));
+             Paragraph p = new Paragraph("Presupuesto");
+            doc.AddTitle("Presupuesto");
+            iTextSharp.text.Rectangle dibu2 = doc.PageSize;
+            doc.Add(dibu2);
+            p.Alignment = 1;
+            p.Font.Size = 20;
+            doc.Add(p);
+            Paragraph d = new Paragraph("N°Orden" + OrdenActual.id_orden);
+            d.Alignment = 2;
+            p.Font.Size = 13;
+            doc.Add(d);
+            
+            
             doc.Close();
             Page.ClientScript.RegisterStartupScript(this.GetType(),"OpenWindow","window.open('Presupuesto.pdf','_newtab');",true);
             //Response.Redirect("Presupuesto.pdf");

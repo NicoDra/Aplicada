@@ -1,6 +1,12 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -112,6 +118,7 @@ namespace AplicandoAplicada
                             }
                             OrdenActual = oOrden;
                             CargarGrid(oOrden);
+                            PDFESTADOCERO();
                         }
                         else
                         {
@@ -148,7 +155,7 @@ namespace AplicandoAplicada
                 preciototal = preciototal + int.Parse(total);
             }
             //lblprecio.Text = preciototal.ToString(); <--- poner label para el total
-            
+            lblprecio.Text = preciototal.ToString();
             Lservicios = ObtenerServicios(Lidservidcios);
             List<serviciostock> Lserstock = Lserviciostock(Lservicios);
             List<stock> Nstock = Lstockuso(Lserstock);
@@ -257,6 +264,90 @@ namespace AplicandoAplicada
 
 
             return NLserviciostock;
+
+        }
+
+        public void PDFESTADOCERO()
+        {
+            Buscadores bus = new Buscadores();
+            var doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
+            string path = Server.MapPath("~");
+            PdfWriter writer =PdfWriter.GetInstance(doc, new FileStream(path + "/Presupuesto.pdf", FileMode.Create));
+           
+            doc.Open();
+            
+            doc.AddTitle("Presupuesto");
+            
+            Paragraph p = new Paragraph("Presupuesto");
+            p.Alignment = 1;
+            p.Font.Size = 24;
+            doc.Add(p);
+            PdfContentByte cb = writer.DirectContent;
+            cb.MoveTo(100,0);
+            cb.LineTo(0,0);
+            cb.Stroke();
+            doc.Add(Chunk.NEWLINE);
+            Paragraph d = new Paragraph("Orden N°: " + OrdenActual.id_orden);
+            d.Alignment = 2;
+            d.Font.Size = 12;
+            doc.Add(d);
+
+            //////////////////////////////////////////desde aca yo me mando las cagadas////////////////////////////////////////////////
+
+            Paragraph fe = new Paragraph(DateTime.Now.ToString("dd-MM-yyyy")); 
+            fe.Alignment = 2;
+            fe.Font.Size = 12;
+            doc.Add(fe);
+
+            Paragraph op = new Paragraph("Operario: " + LogEmpleado.nombreyapellido); 
+            op.Alignment = 2;
+            op.Font.Size = 12;
+            doc.Add(op);
+            doc.Add(Chunk.NEWLINE);
+
+            /////////////////////////////////////////hasta aca llego mi cagada/////////////////////////////////////////////////////////
+
+            vehiculo ovehiculo = bus.buscarvehiculo(txtpatente.Value);
+            cliente ocliente = bus.ocliente(ovehiculo);
+            modelo omarca = bus.buscarmodelo(ovehiculo);
+            marca omodelo = bus.buscarmarca(omarca);
+
+            Paragraph Cliente = new Paragraph("Apellido y Nombre: " + ocliente.nombre + "                 DNI: " + ocliente.dni + "            Telefono: " + ocliente.telefono + "        Correo Electronico: " + ocliente.email);
+            doc.Add(Cliente);
+            doc.Add(Chunk.NEWLINE);
+            Paragraph Vehiculo = new Paragraph("Patente: " + ovehiculo.patente + "          Modelo: " + omodelo.nombre + "       Marca: " + omarca.nombre);
+            doc.Add(Vehiculo);
+            doc.Add(Chunk.NEWLINE);
+            
+
+
+            PdfPTable pdfTable = new PdfPTable(GridView2.HeaderRow.Cells.Count);
+
+            foreach (TableCell headerCell in GridView2.HeaderRow.Cells)
+            {
+                PdfPCell pdfCell = new PdfPCell(new Phrase(headerCell.Text));
+                pdfTable.AddCell(pdfCell);
+            }
+
+            foreach (GridViewRow gridViewRow in GridView2.Rows)
+            {
+
+                foreach (TableCell tableCell in gridViewRow.Cells)
+                {
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(tableCell.Text));
+                    pdfTable.AddCell(pdfCell);
+                }
+            }
+            doc.Add(pdfTable);
+            Paragraph tt = new Paragraph("Total: $" + lblprecio.Text);
+            tt.Alignment = 2;
+            tt.Font.Size = 12;
+            doc.Add(tt);
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Close();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Presupuesto.pdf','_newtab');", true);
+            //Response.Redirect("Presupuesto.pdf");
 
         }
 

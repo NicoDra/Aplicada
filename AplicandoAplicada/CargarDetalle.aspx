@@ -30,11 +30,11 @@
             </div>
 
             <div class="contenedor1">
-
+                <div class="contenedorServicios">
            
                     <div class="divaux">
 
-                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CssClass="gridTaller" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
+                        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CssClass="GridView1" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
 
                         <Columns>
 
@@ -79,12 +79,11 @@
 
                     </asp:GridView>
 
-                    </div></div>
+                    </div>
+                      <asp:Label ID="lblpreciototal" runat="server" Text="Precio Total: ">
+                <asp:Label ID="lblprecio" runat="server" Text="0" Visible="false"></asp:Label>
 
-           		
-
-
-
+            </asp:Label>
                 </div>
 
                 <div class="contenedor2">
