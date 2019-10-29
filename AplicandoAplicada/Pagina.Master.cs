@@ -39,6 +39,7 @@ namespace AplicandoAplicada
                 HabilitarTaller();
                 HabilitarOperario();
                 HabilitarCaja();
+                HabilitarReportes();
 
             }
             else
@@ -50,6 +51,16 @@ namespace AplicandoAplicada
                 btnLogin.Visible = true;
                 btncargardetalle.Visible = false;
                
+            }
+        }
+
+        private void HabilitarReportes()
+        {
+            if (LogEmpleado.id_tipo ==5)
+            {
+                btnReportes.Visible = true;
+                //btnAltadetalle.Visible = true;
+               // btnCaja.Visible = true;
             }
         }
 

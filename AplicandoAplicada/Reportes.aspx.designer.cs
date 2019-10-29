@@ -10,105 +10,69 @@
 namespace AplicandoAplicada {
     
     
-    public partial class Pagina {
+    public partial class Reportes {
         
         /// <summary>
-        /// Control head.
+        /// Control form1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control Label1.
+        /// Control txtinput.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtinput;
         
         /// <summary>
-        /// Control btnLogin.
+        /// Control LST.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLogin;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor LST;
         
         /// <summary>
-        /// Control btnAltadetalle.
+        /// Control LSM.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnAltadetalle;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor LSM;
         
         /// <summary>
-        /// Control btncargardetalle.
+        /// Control LSP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btncargardetalle;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor LSP;
         
         /// <summary>
-        /// Control btnDetalleTaller.
+        /// Control DropMetododePago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnDetalleTaller;
+        protected global::System.Web.UI.WebControls.DropDownList DropMetododePago;
         
         /// <summary>
-        /// Control btnCaja.
+        /// Control PTP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnCaja;
-        
-        /// <summary>
-        /// Control btnTaller.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnTaller;
-        
-        /// <summary>
-        /// Control btnReportes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnReportes;
-        
-        /// <summary>
-        /// Control btnLogout.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLogout;
-        
-        /// <summary>
-        /// Control ContenidoPrincipal.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContenidoPrincipal;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor PTP;
     }
 }

@@ -63,10 +63,7 @@ namespace AplicandoAplicada
             List<orden> Lorden = bus.buscarordeestado(Lordenestado);
             List<vehiculo> LVehiculo = bus.buscarordevehiculo(Lorden);
             LOrden = Lorden;
-            //DropDownList1.DataSource = Lorden;
-            //DropDownList1.DataTextField = "id_orden";
-            //DropDownList1.DataValueField = "id_orden";
-            //DropDownList1.DataBind();
+            
          
         }
 

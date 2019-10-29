@@ -17,6 +17,7 @@
     <link href="App_Themes/Tema1/Caja.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/DetalleTaller.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Login.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Reportes.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
@@ -80,6 +81,10 @@
 
                     <li class="subitem">
                         <a href="Taller.aspx" class="btn" runat="server" id="btnTaller" Visible="false">Taller</a>
+                    </li>
+
+                    <li class="subitem">
+                        <a href="Reportes.aspx" class="btn" runat="server" id="btnReportes" Visible="false">Reportes</a>
                     </li>
                     
                     <li class="subitem">

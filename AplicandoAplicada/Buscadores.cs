@@ -285,6 +285,71 @@ namespace AplicandoAplicada
             return objmarca;
         }
 
+        public List<stock> listastock()
+        {
+            List<stock> Lstock = new List<stock>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<stock> lista = (from q in DBF.stock select q);
+                Lstock = lista.ToList();
+
+            }
+            return Lstock;
+
+        }
+        public List<stock> listastockmarca(string marca)
+        {
+            List<stock> Lstock = new List<stock>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<stock> lista = (from q in DBF.stock select q );
+                Lstock = lista.ToList();
+                Lstock = Lstock.FindAll(x => x.marca == marca);
+
+            }
+            return Lstock;
+
+        }
+
+        public List<stock> listastockproducto(string producto)
+        {
+            List<stock> Lstock = new List<stock>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<stock> lista = (from q in DBF.stock select q);
+                Lstock = lista.ToList();
+                Lstock = Lstock.FindAll(x => x.detalle == producto);
+
+            }
+            return Lstock;
+
+        }
+
+        public List<orden> listasordenmp(string metodop)
+        {
+            List<orden> Lstock = new List<orden>();
+            using (aplicadaBDEntities2 DBF = new aplicadaBDEntities2())
+            {
+                IQueryable<orden> lista = (from q in DBF.orden select q);
+                Lstock = lista.ToList();
+                Lstock = Lstock.FindAll(x => x.mpago == metodop);
+
+            }
+            return Lstock;
+
+        }
+        public List<orden> ordenponervyc(List<orden> Lorden)
+        {
+            foreach (orden oorden in Lorden)
+            {
+                int v2 = oorden.id_vehiculo ?? default(int);
+                oorden.vehiculo = buscarvehiculoid(v2);
+                oorden.vehiculo.cliente=ocliente(oorden.vehiculo);
+
+            }
+            return Lorden;
+        }
+
         
 
     }
