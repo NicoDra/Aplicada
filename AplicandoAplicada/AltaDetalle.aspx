@@ -27,15 +27,17 @@
 		<div class="contenedorServicios">
            
             <div class="divaux drop">
-                <asp:DropDownList ID="DropTipoServicio" CssClass="modelito" runat="server" DataSourceID="Tiposdeservicios" DataTextField="tipodeservicio" DataValueField="id" AutoPostBack="True" OnSelectedIndexChanged="DropTipoServicio_SelectedIndexChanged"></asp:DropDownList>
+                <asp:DropDownList ID="DropTipoServicio" CssClass="modelito" runat="server" DataSourceID="Tiposdeservicios" DataTextField="tipodeservicio" DataValueField="id" AutoPostBack="True" OnSelectedIndexChanged="DropTipoServicio_SelectedIndexChanged" Enabled="False"></asp:DropDownList>
                 <asp:EntityDataSource ID="Tiposdeservicios" runat="server" ConnectionString="name=aplicadaBDEntities2" DefaultContainerName="aplicadaBDEntities2" EnableFlattening="False" EntitySetName="tiposervicio" EntityTypeFilter="tiposervicio" Select="it.[id], it.[tipodeservicio]"></asp:EntityDataSource>
                 <br />
                 <br />
-                <asp:DropDownList ID="DropServicio" CssClass="modelito" runat="server" Visible="false"></asp:DropDownList>
+                <asp:DropDownList ID="DropServicio" CssClass="modelito" runat="server" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="CambioElValordeldrop"></asp:DropDownList>
                 <br />
                 <br />
-               <input type="number" runat="server" id="txtcantidad" value="1" visible="false"/>
+                <asp:TextBox ID="txtcantidad" runat="server" Text="0" AutoPostBack="true" OnTextChanged="Eventotest"></asp:TextBox>
+                <%--<input type="number" runat="server" id="txtcantidad" value="1" visible="false" onkeypress="Eventotest" onchange="Eventotest"/>--%>
                 <br />
+                <input type="number" runat="server" id="txtprecioporcantidad" value="0" visible="false" disabled="disabled" />
                 <br />
                 
             </div>

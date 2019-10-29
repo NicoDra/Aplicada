@@ -177,10 +177,12 @@ namespace AplicandoAplicada
                     VerGrid(oservicio);
                     A1.Visible = true;
                     btnServicios.Visible = true;
-                    DropServicio.Visible = true;
+                    DropServicio.Enabled= true;
                     txtcantidad.Visible = true;
+                    DropTipoServicio.Enabled = true;
                     lblpreciototal.Visible = true;
                     btnfinalizar.Visible = true;
+                    txtprecioporcantidad.Visible = true;
                     
 
                     }
@@ -624,8 +626,8 @@ namespace AplicandoAplicada
                         Lservi = Lse;
                         string detalle = oservicio.detalle;
                         string precio = oservicio.precio;
-                        string total = (double.Parse(oservicio.precio) * double.Parse(txtcantidad.Value)).ToString();
-                        string cantidad = txtcantidad.Value;
+                        string total = (double.Parse(oservicio.precio) * double.Parse(txtcantidad.Text)).ToString();
+                        string cantidad = txtcantidad.Text;
                         Cantidad oCantidad = new Cantidad(oservicio.id_servicios, int.Parse(cantidad));
                         Lcantidades.Add(oCantidad); 
 
@@ -716,7 +718,7 @@ namespace AplicandoAplicada
             VerGrid(oservicio);
         }
 
-
+       
 
         protected void btnpasarataller_ServerClick(object sender, EventArgs e)
         {
@@ -827,6 +829,20 @@ namespace AplicandoAplicada
             Page.ClientScript.RegisterStartupScript(this.GetType(),"OpenWindow","window.open('Presupuesto.pdf','_newtab');",true);
             //Response.Redirect("Presupuesto.pdf");
 
+        }
+
+        protected void CambioElValordeldrop(object sender, EventArgs e)
+        {
+            Buscadores bus = new Buscadores();
+            servicio oservicio = bus.buscarservicio(int.Parse(DropServicio.SelectedItem.Value));
+            txtprecioporcantidad.Value = (int.Parse(oservicio.precio)*int.Parse(txtcantidad.Text)).ToString();
+        }
+
+        protected void Eventotest(object sender, EventArgs e)
+        {
+            Buscadores bus = new Buscadores();
+            servicio oservicio = bus.buscarservicio(int.Parse(DropServicio.SelectedItem.Value));
+            txtprecioporcantidad.Value = (int.Parse(oservicio.precio) * int.Parse(txtcantidad.Text)).ToString();
         }
 
         

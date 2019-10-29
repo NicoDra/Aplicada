@@ -97,6 +97,7 @@
     <Content Include="App_Themes\Tema1\altaClientes.css" />
     <Content Include="App_Themes\Tema1\Caja.css" />
     <Content Include="App_Themes\Tema1\DetalleTaller.css" />
+    <Content Include="App_Themes\Tema1\Entregado.css" />
     <Content Include="App_Themes\Tema1\estillos.css" />
     <Content Include="AltaClientes.aspx" />
     <Content Include="App_Themes\Tema1\Login.css" />
@@ -106,6 +107,7 @@
     <Content Include="App_Themes\Tema1\Taller.css" />
     <Content Include="CargarDetalle.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Entregado.aspx" />
     <Content Include="Imagen\logo.png" />
     <Content Include="Imagen\lupa.png" />
     <Content Include="Imagen\Slider\1.png" />
@@ -207,6 +209,13 @@
     </Compile>
     <Compile Include="empleado.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entregado.aspx.cs">
+      <DependentUpon>Entregado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entregado.aspx.designer.cs">
+      <DependentUpon>Entregado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

@@ -18,6 +18,7 @@
     <link href="App_Themes/Tema1/DetalleTaller.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Login.css" rel="stylesheet" />
     <link href="App_Themes/Tema1/Reportes.css" rel="stylesheet" />
+    <link href="App_Themes/Tema1/Entregado.css" rel="stylesheet" />
     <script src="js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
