@@ -217,7 +217,7 @@
                 
         <div class="btnTaller">
 				
-				<a href="#">Imprimir</a>
+				<a href="#" runat="server" onserverclick="BtnImporimir">Imprimir</a>
 				<a href="#" runat="server" onserverclick="BtnCobrar">Cobrar</a>
 
 			</div>

@@ -79,6 +79,7 @@ namespace AplicandoAplicada
             {
                 btnAltadetalle.Visible = true;
                 btncargardetalle.Visible = true;
+                btnentregar.Visible = true;
 
             }
         }

@@ -118,7 +118,7 @@
     <Content Include="js\subMenu.js" />
     <Content Include="Login.aspx" />
     <Content Include="Reportes.aspx" />
-    <Content Include="Reportesuno.aspx" />
+    <Content Include="Resources\Factura.png" />
     <Content Include="Web.config" />
     <Content Include="Taller.aspx" />
     <Content Include="Caja.aspx" />
@@ -195,11 +195,6 @@
       <DependentUpon>Aplicadabd.tt</DependentUpon>
     </Compile>
     <Compile Include="Controles\ReportedPdfController.cs" />
-    <Compile Include="DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -250,19 +245,17 @@
       <DependentUpon>Pagina.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reportes.aspx.cs">
       <DependentUpon>Reportes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reportes.aspx.designer.cs">
       <DependentUpon>Reportes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reportesuno.aspx.cs">
-      <DependentUpon>Reportesuno.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reportesuno.aspx.designer.cs">
-      <DependentUpon>Reportesuno.aspx</DependentUpon>
     </Compile>
     <Compile Include="servicio.cs">
       <DependentUpon>Aplicadabd.tt</DependentUpon>
@@ -323,17 +316,6 @@
     <Content Include="Aplicadabd.edmx.diagram">
       <DependentUpon>Aplicadabd.edmx</DependentUpon>
     </Content>
-    <Content Include="DataSet1.xsc">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Content>
-    <None Include="DataSet1.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="DataSet1.xss">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -349,6 +331,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Reporteestado0.rdlc" />
   </ItemGroup>
   <PropertyGroup>

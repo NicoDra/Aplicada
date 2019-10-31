@@ -87,7 +87,7 @@ namespace AplicandoAplicada
 
                     if (oOrden != null)
                     {
-                        if ((Oordenestado == null) || (Oordenestado.estado == null) || (Oordenestado.estado==0)||(Oordenestado.estado == 4) )
+                        if ((Oordenestado == null) || (Oordenestado.estado == null) || (Oordenestado.estado==0)||(Oordenestado.estado == 5) )
                         {
 
                             //Validar orden estado 2 o superior aca? si?

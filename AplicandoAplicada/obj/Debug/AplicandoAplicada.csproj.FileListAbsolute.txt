@@ -14,3 +14,5 @@ C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\Aplicando
 C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\RdlCompile.compiled
 C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\bin\itextsharp.dll
 C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\bin\itextsharp.xml
+C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\AplicandoAplicada.Properties.Resources.resources
+C:\Users\niko_\documents\visual studio 2013\Projects\AplicandoAplicada\AplicandoAplicada\obj\Debug\AplicandoAplicada.csproj.GenerateResource.Cache

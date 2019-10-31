@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pagina.Master" AutoEventWireup="true" CodeBehind="AltaDetalle.aspx.cs" Inherits="AplicandoAplicada.AltaDetalle" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContenidoPrincipal" runat="server">
@@ -34,10 +35,18 @@
                 <asp:DropDownList ID="DropServicio" CssClass="modelito" runat="server" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="CambioElValordeldrop"></asp:DropDownList>
                 <br />
                 <br />
-                <asp:TextBox ID="txtcantidad" runat="server" Text="0" AutoPostBack="true" OnTextChanged="Eventotest"></asp:TextBox>
+
+                <div>
+                    <asp:Label ID="Label4" runat="server" Text="Cantidad: "></asp:Label>
+                   <asp:TextBox ID="txtcantidad" runat="server"  AutoPostBack="true" OnTextChanged="Eventotest" onkeypress="javascript:return solonumeros(event)" CssClass="inputCantidad" Enabled="false" Text="1"></asp:TextBox>
+                </div>
+                 
                 <%--<input type="number" runat="server" id="txtcantidad" value="1" visible="false" onkeypress="Eventotest" onchange="Eventotest"/>--%>
                 <br />
-                <input type="number" runat="server" id="txtprecioporcantidad" value="0" visible="false" disabled="disabled" />
+                <div>
+                    <asp:Label ID="Label5" runat="server" Text="Precio por cantidad: "></asp:Label>
+                    <input type="number" runat="server" id="txtprecioporcantidad" value="0" visible="false" disabled="disabled" class="inputCantidad" />
+                </div>
                 <br />
                 
             </div>
@@ -67,18 +76,19 @@
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
 
                             </asp:BoundField>
-                            <asp:BoundField DataField="total" HeaderText="Total ($)" >
+                        <asp:BoundField DataField="cantidad" HeaderText="Cantidad" >
+                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+
+                            </asp:BoundField>   
+                         <asp:BoundField DataField="total" HeaderText="Total ($)" >
                                 <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
 
                             </asp:BoundField>
-                            <asp:BoundField DataField="cantidad" HeaderText="Cantidad" >
-                                <FooterStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
-
-                            </asp:BoundField>
+                           
 
                         
                         

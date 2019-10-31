@@ -65,15 +65,18 @@
                     </li>
                     
                     <li class="subitem">
-                        <a href="AltaDetalle.aspx" class="btn" runat="server" id="btnAltadetalle" Visible="false">Alta Detalle</a>
+                        <a href="AltaDetalle.aspx" class="btn" runat="server" id="btnAltadetalle" Visible="false">Nuevo Presupuesto</a>
                     </li>
 
                     <li class="subitem">
-                        <a href="CargarDetalle.aspx" class="btn" runat="server" Visible="false" id="btncargardetalle" >Cargar Detalle</a>
+                        <a href="CargarDetalle.aspx" class="btn" runat="server" Visible="false" id="btncargardetalle" >Cargar Presupuesto</a>
+                    </li>
+                    <li class="subitem">
+                        <a href="Entregado.aspx" class="btn" runat="server" id="btnentregar" Visible="false">Entrega</a>
                     </li>
                     
                     <li class="subitem">
-                        <a href="DetalleTaller.aspx" class="btn" runat="server" id="btnDetalleTaller" Visible="false">Detalle Taller</a>
+                        <a href="DetalleTaller.aspx" class="btn" runat="server" id="btnDetalleTaller" Visible="false">Taller</a>
                     </li>
                     
                     <li class="subitem">
@@ -111,5 +114,27 @@
 
     <script src="js/menu.js"></script>
     <script src="js/subMenu.js"></script>
+    <script>
+        function solonumeros(e) {
+
+            var key;
+
+            if (window.event) // IE
+            {
+                key = e.keyCode;
+            }
+            else if (e.which) // Netscape/Firefox/Opera
+            {
+                key = e.which;
+            }
+
+            if (key < 48 || key > 57) {
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
 </body>
 </html>

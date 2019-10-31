@@ -1,6 +1,9 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -144,19 +147,19 @@ namespace AplicandoAplicada
 
         private void MetodosdePago()
         {
-            ListItem i;
-            i = new ListItem("Tarjeta de Credito", "Tarjeta de Credito");
+            System.Web.UI.WebControls.ListItem i;
+            i = new System.Web.UI.WebControls.ListItem("Tarjeta de Credito", "Tarjeta de Credito");
             DropMetododePago.Items.Add(i);
-            i = new ListItem("Tarjeta de Debito", "Tarjeta de Debito");
+            i = new System.Web.UI.WebControls.ListItem("Tarjeta de Debito", "Tarjeta de Debito");
             DropMetododePago.Items.Add(i);
-            i = new ListItem("Efectivo","Efectivo");
+            i = new System.Web.UI.WebControls.ListItem("Efectivo", "Efectivo");
             DropMetododePago.Items.Add(i);
             divmetodo.Visible = true;
         }
 
         private void CargarGrid(orden oOrden)
         {
-            int a = 0;
+           
             MetodosdePago();
             Buscadores bus = new Buscadores();
             List<ordenservicio> Lidservidcios = new List<ordenservicio>();
@@ -223,5 +226,39 @@ namespace AplicandoAplicada
 
             }
         }
+
+        public void PDFESTADOCERO() {
+
+            iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(PageSize.A4);
+            var doc = new iTextSharp.text.Document(rec);
+            string url = "http://localhost:8077/Recursos/Factura.png";
+
+            rec.BackgroundColor = new BaseColor(System.Drawing.Color.Olive);
+            doc.SetPageSize(iTextSharp.text.PageSize.A4);
+            string path = Server.MapPath("~");
+            PdfWriter.GetInstance(doc, new FileStream(path + "/Factura.pdf", FileMode.Create));
+            doc.Open();
+            iTextSharp.text.Image Factura = iTextSharp.text.Image.GetInstance(url);
+            Factura.BorderWidth = 0;
+            Factura.Alignment = Element.ALIGN_RIGHT;
+            float percentage = 0.0f;
+            percentage = 150 / Factura.Width;
+            Factura.ScalePercent(percentage * 100);
+            doc.Add(Factura);
+
+            // Cerramos el documento
+            doc.Close();
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Factura.pdf','_newtab');", true);
+        
+        }
+
+        protected void BtnImporimir(object sender, EventArgs e)
+        {
+            PDFESTADOCERO();
+
+        }
+        
+    
     }
 }

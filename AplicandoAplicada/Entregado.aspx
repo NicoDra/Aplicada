@@ -7,14 +7,14 @@
         <div class="buscarOrden">
 				
             <input type="text" placeholder="INGRESAR NUMERO DE ORDEN" runat="server" id="txtorden"/>
-            <a href="#" runat="server"  id="btnbuscarorden">Buscar</a>
+            <a href="#" runat="server"  id="btnbuscarorden" onserverclick="BtnBuscarO">Buscar</a>
         
         </div>
 
         <div class="buscarOrden">
 				
             <input type="text" placeholder="INGRESAR PATENTE" runat="server" id="txtpatente" />
-            <a href="#" runat="server"  id="btnbuscarpatente">Buscar</a>
+            <a href="#" runat="server"  id="btnbuscarpatente" onserverclick="BtnBuscarP">Buscar</a>
 
         </div>
 
@@ -24,7 +24,7 @@
 
         <div class="titulo">
 
-            <h2>DATOS DEL PROPIETARIO Y VEHICULO</h2>
+            <h2 id="labeltitulo" runat="server">DATOS DEL PROPIETARIO Y VEHICULO</h2>
 
         </div>
 
@@ -63,7 +63,7 @@
 
         <div class="botones">
 
-            <a href="#" runat="server" class="btnEntregar">Entregar</a>
+            <a href="#" runat="server" class="btnEntregar" onserverclick="btnEntregar">Entregar</a>
 
         </div>
 

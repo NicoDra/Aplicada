@@ -350,6 +350,37 @@ namespace AplicandoAplicada
             return Lorden;
         }
 
+        public List<serviciostock> Lserviciostock(string id)
+        {
+            Buscadores bus = new Buscadores();
+            List<serviciostock> Lserviciostocks = bus.Lstockservi();
+            List<serviciostock> NLserviciostock = new List<serviciostock>();
+            NLserviciostock = Lserviciostocks.FindAll(s => s.id_servicio == int.Parse(id));
+
+            return NLserviciostock;
+
+        }
+        public List<stock> Lstockuso(String id)
+        {
+            Buscadores bus = new Buscadores();
+            List<stock> Lstock = bus.Lstock();
+            List<stock> stockactivo = new List<stock>();
+            List<serviciostock> LSS = Lserviciostock(id);
+            foreach (stock Stock in Lstock)
+            {
+                foreach (serviciostock Servistock in LSS)
+                {
+                    if (Stock.id_stock == Servistock.id_stock)
+                    {
+                        stockactivo.Add(Stock);
+
+                    }
+
+                }
+            }
+
+            return stockactivo;
+        }
         
 
     }
