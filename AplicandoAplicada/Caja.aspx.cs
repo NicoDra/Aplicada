@@ -231,14 +231,14 @@ namespace AplicandoAplicada
 
             iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(PageSize.A4);
             var doc = new iTextSharp.text.Document(rec);
-            string url = "http://localhost:8077/Recursos/Factura.png";
+            string url = "@//";
 
             rec.BackgroundColor = new BaseColor(System.Drawing.Color.Olive);
             doc.SetPageSize(iTextSharp.text.PageSize.A4);
             string path = Server.MapPath("~");
             PdfWriter.GetInstance(doc, new FileStream(path + "/Factura.pdf", FileMode.Create));
             doc.Open();
-            iTextSharp.text.Image Factura = iTextSharp.text.Image.GetInstance(url);
+            iTextSharp.text.Image Factura = iTextSharp.text.Image.GetInstance("C:/Users/niko_/documents/visual studio 2013/Projects/AplicandoAplicada/AplicandoAplicada/Resources/Factura.jpg");
             Factura.BorderWidth = 0;
             Factura.Alignment = Element.ALIGN_RIGHT;
             float percentage = 0.0f;
