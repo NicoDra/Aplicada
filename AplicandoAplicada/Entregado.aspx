@@ -31,27 +31,40 @@
 
         <div class="datosEntregar">
 
-            <div>
+            <div class="itemm">
 
                 <asp:Label CssClass="label" ID="Nombre" runat="server" Text="Nombre: "></asp:Label>
-                <asp:Label CssClass="label" ID="lblNombre" runat="server" Text="------"></asp:Label>
+                <asp:Label CssClass="label" ID="lblNombre" runat="server" Text="------"></asp:Label><br />
+            </div>
+            
+            <div class="itemm">
+
                 <asp:Label CssClass="label" ID="DNI" runat="server" Text="DNI: "></asp:Label>
-                <asp:Label CssClass="label" ID="lblDNI" runat="server" Text="------"></asp:Label>
+                <asp:Label CssClass="label" ID="lblDNI" runat="server" Text="------"></asp:Label><br />
             
             </div>
             
-            <div>
+            <div class="itemm">
             
                 <asp:Label CssClass="label" ID="Patente" runat="server" Text="Patente: "></asp:Label>
-                <asp:Label CssClass="label" ID="lblPatente" runat="server" Text="------"></asp:Label>
+                <asp:Label CssClass="label" ID="lblPatente" runat="server" Text="------"></asp:Label><br />
+
+            </div>
+
+            <div class="itemm">
+
                 <asp:Label CssClass="label" ID="Marca" runat="server" Text="Marca: "></asp:Label>
-                <asp:Label CssClass="label" ID="lblMarca" runat="server" Text="------"></asp:Label>
+                <asp:Label CssClass="label" ID="lblMarca" runat="server" Text="------"></asp:Label><br />
+
+            </div>
+            
+            <div class="itemm">
                 <asp:Label CssClass="label" ID="Modelo" runat="server" Text="Modelo: "></asp:Label>
-                <asp:Label CssClass="label" ID="lblModelo" runat="server" Text="------"></asp:Label>
+                <asp:Label CssClass="label" ID="lblModelo" runat="server" Text="------"></asp:Label><br />
             
             </div>
 
-            <div>
+            <div class="itemm">
                 
                 <asp:Label CssClass="label" ID="Estado" runat="server" Text="Estado: "></asp:Label>
                 <asp:Label CssClass="label" ID="lblEstado" runat="server" Text="------"></asp:Label>

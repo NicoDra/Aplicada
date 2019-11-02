@@ -209,7 +209,6 @@ namespace AplicandoAplicada
             doc.Add(p);
             //Espacio
             doc.Add(new Chunk("\n", fntHead)); 
-            //Va a explitar
             //Datos
             Paragraph Datos = new Paragraph();
             BaseFont bfntDatos = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -228,13 +227,13 @@ namespace AplicandoAplicada
                     doc.Add(Dato);
                     //Espacio
                     doc.Add(new Chunk("\n", fntHead)); 
-                    
+                    //Creo una tabla
                     DataTable dt = new DataTable();
-                    dt.Columns.AddRange(new DataColumn[4] { new DataColumn("Codigo"), new DataColumn("Detalle"), new DataColumn("Marca"), new DataColumn("Cantidad") });
+                    dt.Columns.AddRange(new DataColumn[4] { new DataColumn("Codigo"), new DataColumn("Detalle"), new DataColumn("Marca"), new DataColumn("Cantidad") });//nombre de las columnas
                     List<stock> Lstock = bus.Lstockuso(oservicio.id_servicios.ToString());
                     foreach (stock ostock in Lstock)
                     {
-                        dt.Rows.Add(ostock.codigo, ostock.detalle, ostock.marca, ostock.cantidad);
+                        dt.Rows.Add(ostock.codigo, ostock.detalle, ostock.marca, ostock.cantidad); //Agrego las filas a la tabla
                     }
                     //Tabla
                     PdfPTable table = new PdfPTable(dt.Columns.Count);
@@ -263,8 +262,9 @@ namespace AplicandoAplicada
                     doc.Add(new Chunk("\n", fntHead)); 
                 }
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Taller.pdf','_newtab');", true);
+            
             doc.Close();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Taller.pdf','_newtab');", true);
 
 
         }

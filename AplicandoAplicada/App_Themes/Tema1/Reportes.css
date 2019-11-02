@@ -1,9 +1,8 @@
-﻿
-.contenedor .contenidoprincipal {
+﻿.contenedor .contenidoprincipal {
     height: auto;
-    width: 400px;
-    background: #f2f2f2;
-    margin: 80px auto;
+    width: 350px;
+    background: #f2f2f2; margin: 80px auto;
+   
     display: flex;
     float:left;
     flex-direction: column;
@@ -62,4 +61,5 @@
         background: #fff;
         border: 1px solid #ccc;
         border-radius: 6px;
+
 }

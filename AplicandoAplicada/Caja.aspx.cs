@@ -227,30 +227,141 @@ namespace AplicandoAplicada
             }
         }
 
-        public void PDFESTADOCERO() {
+        //public void PDFESTADOCERO() {
 
-            iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(PageSize.A4);
-            var doc = new iTextSharp.text.Document(rec);
-            string url = "@//";
+        //    iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(PageSize.A4);
+        //    var doc = new iTextSharp.text.Document(rec);
+        //    string url = "@//";
 
-            rec.BackgroundColor = new BaseColor(System.Drawing.Color.Olive);
-            doc.SetPageSize(iTextSharp.text.PageSize.A4);
-            string path = Server.MapPath("~");
-            PdfWriter.GetInstance(doc, new FileStream(path + "/Factura.pdf", FileMode.Create));
-            doc.Open();
-            iTextSharp.text.Image Factura = iTextSharp.text.Image.GetInstance("C:/Users/niko_/documents/visual studio 2013/Projects/AplicandoAplicada/AplicandoAplicada/Resources/Factura.jpg");
-            Factura.BorderWidth = 0;
-            Factura.Alignment = Element.ALIGN_RIGHT;
-            float percentage = 0.0f;
-            percentage = 150 / Factura.Width;
-            Factura.ScalePercent(percentage * 100);
-            doc.Add(Factura);
+        //    rec.BackgroundColor = new BaseColor(System.Drawing.Color.Olive);
+        //    doc.SetPageSize(iTextSharp.text.PageSize.A4);
+        //    string path = Server.MapPath("~");
+        //    PdfWriter.GetInstance(doc, new FileStream(path + "/Factura.pdf", FileMode.Create));
+        //    doc.Open();
+        //    iTextSharp.text.Image Factura = iTextSharp.text.Image.GetInstance("C:/Users/niko_/documents/visual studio 2013/Projects/AplicandoAplicada/AplicandoAplicada/Resources/Factura.jpg");
+        //    Factura.BorderWidth = 0;
+        //    Factura.Alignment = Element.ALIGN_RIGHT;
+        //    float percentage = 0.0f;
+        //    percentage = 150 / Factura.Width;
+        //    Factura.ScalePercent(percentage * 100);
+        //    doc.Add(Factura);
 
-            // Cerramos el documento
-            doc.Close();
+        //    // Cerramos el documento
+        //    doc.Close();
 
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Factura.pdf','_newtab');", true);
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Factura.pdf','_newtab');", true);
         
+        //}
+
+        public void PDFESTADOCERO()
+        {
+
+            Buscadores bus = new Buscadores();
+            var doc = new iTextSharp.text.Document(PageSize.A4);
+            string path = Server.MapPath("~");
+            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(path + "/Factura.pdf", FileMode.Create));
+
+
+            vehiculo ovehiculo = bus.buscarvehiculoid(Ordenn.id_vehiculo ?? default(int));
+            cliente ocliente = bus.ocliente(ovehiculo);
+            modelo omodelo = bus.buscarmodelo(ovehiculo);
+            marca omarca = bus.buscarmarca(omodelo);
+
+            doc.Open();
+
+            //Cabecera
+            BaseFont bfntHead = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.Font fntHead = new iTextSharp.text.Font(bfntHead, 16, 1, iTextSharp.text.BaseColor.GREEN.Darker());
+            Paragraph prgHeading = new Paragraph();
+            prgHeading.Alignment = 1;
+            prgHeading.Add(new Chunk("Factura".ToUpper(), fntHead));
+            doc.Add(prgHeading);
+            doc.Add(Chunk.NEWLINE);
+
+            //Generado By
+            Paragraph prgGeneratedBY = new Paragraph();
+            BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.Font fntAuthor = new iTextSharp.text.Font(btnAuthor, 12, 2, iTextSharp.text.BaseColor.BLACK);
+            prgGeneratedBY.Alignment = Element.ALIGN_RIGHT;
+            prgGeneratedBY.Add(new Chunk("Generado por: " + LogEmpleado.nombreyapellido, fntAuthor));  //Agregar LOG Empleado
+            prgGeneratedBY.Add(new Chunk("\nFecha : " + DateTime.Now.ToShortDateString(), fntAuthor));
+            prgGeneratedBY.Add(new Chunk("\nN° de Orden : " + Ordenn.id_orden, fntAuthor));
+            doc.Add(prgGeneratedBY);
+            doc.Add(Chunk.NEWLINE);
+
+            doc.Add(Chunk.NEWLINE);
+
+            //tablados
+            PdfPTable tabla2 = new PdfPTable(2);
+            tabla2.WidthPercentage = 100;
+            tabla2.SpacingAfter = 20;
+
+            PdfPCell vehiculoTitulo = new PdfPCell(new Phrase("Vehiculo"));
+            vehiculoTitulo.BorderWidth = 0;
+            vehiculoTitulo.BorderWidthRight = 0.75f;
+            vehiculoTitulo.BorderWidthTop = 0.75f;
+            vehiculoTitulo.BorderWidthLeft = 0.75f;
+            vehiculoTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell clienteTitulo = new PdfPCell(new Phrase("Cliente"));
+            clienteTitulo.BorderWidth = 0;
+            clienteTitulo.BorderWidthTop = 0.75f;
+            clienteTitulo.BorderWidthRight = 0.75f;
+            clienteTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            //PdfPCell blankCell = new PdfPCell(new Phrase(Chunk.NEWLINE));
+            //blankCell.BorderWidth = 0;
+            //blankCell.BorderWidthRight = 0.75f;
+            //blankCell.BorderWidthLeft = 0.75f;
+
+            //PdfPCell blankCell2 = new PdfPCell(new Phrase(Chunk.NEWLINE));
+            //blankCell2.BorderWidth = 0;
+            //blankCell2.BorderWidthRight = 0.75f;
+
+            PdfPCell patente = new PdfPCell(new Phrase("Patente: " + ovehiculo.patente));
+            patente.BorderWidth = 0;
+            patente.BorderWidthRight = 0.75f;
+            patente.BorderWidthBottom = 0.75f;
+            patente.BorderWidthLeft = 0.75f;
+
+            PdfPCell marca = new PdfPCell(new Phrase("Marca: " + omarca.nombre));
+            marca.BorderWidth = 0;
+            marca.BorderWidthRight = 0.75f;
+            marca.BorderWidthLeft = 0.75f;
+
+            PdfPCell modelo = new PdfPCell(new Phrase("Modelo: " + omodelo.nombre));
+            modelo.BorderWidth = 0;
+            modelo.BorderWidthRight = 0.75f;
+            modelo.BorderWidthLeft = 0.75f;
+
+            PdfPCell nombre = new PdfPCell(new Phrase("Apellido y Nombre: " + ocliente.nombre));
+            nombre.BorderWidth = 0;
+            nombre.BorderWidthLeft = 0.75f;
+            nombre.BorderWidthBottom = 0.75f;
+            nombre.BorderWidthRight = 0.75f;
+            PdfPCell dni = new PdfPCell(new Phrase("DNI: " + ocliente.dni));
+            dni.BorderWidth = 0;
+            dni.BorderWidthBottom = 0.75f;
+            dni.BorderWidthRight = 0.75f;
+            
+            tabla2.AddCell(vehiculoTitulo);
+            tabla2.AddCell(clienteTitulo);
+            //tabla2.AddCell(blankCell);
+            //tabla2.AddCell(blankCell2);
+            tabla2.AddCell(marca);
+            tabla2.AddCell(modelo);
+            tabla2.AddCell(nombre);
+            tabla2.AddCell(patente);
+            tabla2.AddCell(dni);
+
+            doc.Add(tabla2);
+
+
+            doc.Close();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Factura.pdf','_newtab');", true);
+            //Response.Redirect("Presupuesto.pdf");
+
+
         }
 
         protected void BtnImporimir(object sender, EventArgs e)
