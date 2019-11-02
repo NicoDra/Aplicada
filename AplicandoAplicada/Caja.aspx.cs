@@ -53,6 +53,20 @@ namespace AplicandoAplicada
                 Session["LaOrden"] = value;
             }
         }
+        public DataTable dt
+        {
+            get
+            {
+                if (Session["dt"] == null)
+                    Session["dt"] = new DataTable();
+                return (DataTable)Session["dt"];
+            }
+            set
+            {
+                Session["dt"] = value;
+            }
+        }
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -166,7 +180,7 @@ namespace AplicandoAplicada
             Lidservidcios = bus.buscarlistaid(oOrden.id_orden);
             List<servicio> Lservicios = ObtenerServicios(Lidservidcios);
             DataTable dtable = new DataTable();
-            dtable.Columns.AddRange(new DataColumn[4] { new DataColumn("Detalle"), new DataColumn("Precio"), new DataColumn("Total"), new DataColumn("Cantidad") });
+            dtable.Columns.AddRange(new DataColumn[4] {new DataColumn("Cantidad") , new DataColumn("Detalle"), new DataColumn("Precio"), new DataColumn("Total")});
             int preciototal =0;
             foreach (ordenservicio o in Lidservidcios)
             {
@@ -174,7 +188,7 @@ namespace AplicandoAplicada
                 servicio oservicio = Lservicios.Find(x => x.id_servicios == o.id_servicio);
                 int cantidad = o.cantidad ?? default(int); 
                 string total = (double.Parse(oservicio.precio) * Convert.ToDouble(cantidad)).ToString();
-                dtable.Rows.Add(oservicio.detalle, oservicio.precio,total,o.cantidad);
+                dtable.Rows.Add(o.cantidad,oservicio.detalle, oservicio.precio, total);
                 preciototal = preciototal + int.Parse(total);
             }
             //foreach (servicio x in Lservicios)
@@ -183,6 +197,7 @@ namespace AplicandoAplicada
             //}
             lblprecio.Text = preciototal.ToString();
             //GridView1.DataSource = Lservicios;
+            dt = dtable;
             GridView1.DataSource = dtable;
             GridView1.DataBind();
         }
@@ -302,52 +317,52 @@ namespace AplicandoAplicada
             vehiculoTitulo.BorderWidthTop = 0.75f;
             vehiculoTitulo.BorderWidthLeft = 0.75f;
             vehiculoTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
+            vehiculoTitulo.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
 
             PdfPCell clienteTitulo = new PdfPCell(new Phrase("Cliente"));
             clienteTitulo.BorderWidth = 0;
             clienteTitulo.BorderWidthTop = 0.75f;
             clienteTitulo.BorderWidthRight = 0.75f;
             clienteTitulo.HorizontalAlignment = Element.ALIGN_CENTER;
+            clienteTitulo.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
 
-            //PdfPCell blankCell = new PdfPCell(new Phrase(Chunk.NEWLINE));
-            //blankCell.BorderWidth = 0;
-            //blankCell.BorderWidthRight = 0.75f;
-            //blankCell.BorderWidthLeft = 0.75f;
-
-            //PdfPCell blankCell2 = new PdfPCell(new Phrase(Chunk.NEWLINE));
-            //blankCell2.BorderWidth = 0;
-            //blankCell2.BorderWidthRight = 0.75f;
+          
 
             PdfPCell patente = new PdfPCell(new Phrase("Patente: " + ovehiculo.patente));
             patente.BorderWidth = 0;
             patente.BorderWidthRight = 0.75f;
             patente.BorderWidthBottom = 0.75f;
             patente.BorderWidthLeft = 0.75f;
+            patente.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
 
             PdfPCell marca = new PdfPCell(new Phrase("Marca: " + omarca.nombre));
             marca.BorderWidth = 0;
             marca.BorderWidthRight = 0.75f;
             marca.BorderWidthLeft = 0.75f;
+            marca.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
 
             PdfPCell modelo = new PdfPCell(new Phrase("Modelo: " + omodelo.nombre));
             modelo.BorderWidth = 0;
             modelo.BorderWidthRight = 0.75f;
             modelo.BorderWidthLeft = 0.75f;
+            modelo.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
 
             PdfPCell nombre = new PdfPCell(new Phrase("Apellido y Nombre: " + ocliente.nombre));
             nombre.BorderWidth = 0;
             nombre.BorderWidthLeft = 0.75f;
             nombre.BorderWidthBottom = 0.75f;
             nombre.BorderWidthRight = 0.75f;
+            nombre.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
+            
             PdfPCell dni = new PdfPCell(new Phrase("DNI: " + ocliente.dni));
             dni.BorderWidth = 0;
             dni.BorderWidthBottom = 0.75f;
             dni.BorderWidthRight = 0.75f;
+            dni.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
             
             tabla2.AddCell(vehiculoTitulo);
             tabla2.AddCell(clienteTitulo);
-            //tabla2.AddCell(blankCell);
-            //tabla2.AddCell(blankCell2);
+         
             tabla2.AddCell(marca);
             tabla2.AddCell(modelo);
             tabla2.AddCell(nombre);
@@ -355,8 +370,50 @@ namespace AplicandoAplicada
             tabla2.AddCell(dni);
 
             doc.Add(tabla2);
+            dt.Rows.Add("", "", "Total", lblprecio.Text);
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
 
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                string cellText = Server.HtmlDecode(dt.Columns[i].ColumnName);
+                PdfPCell cell = new PdfPCell();
+                cell.Phrase = new Phrase(cellText, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 10, 1, new BaseColor(System.Drawing.ColorTranslator.FromHtml("#000000"))));
+                cell.BackgroundColor = new BaseColor(System.Drawing.ColorTranslator.FromHtml("#C8C8C8"));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_CENTER;
+                cell.PaddingBottom = 5;
+               
+                table.AddCell(cell);
+            }
+            //Agregando Campos a la tabla
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {   PdfPCell cell = new PdfPCell();
+                    cell.Phrase = new Phrase(dt.Rows[i][j].ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 10, 0, new BaseColor(System.Drawing.ColorTranslator.FromHtml("#000000"))));
+                    
+                    if (j == 1)
+                    {
+                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
+                    }
+                    else
+                    {
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                    }
+                    if (dt.Rows[i][j].ToString() == "Total")
+                    {
+                        cell.Phrase = new Phrase(dt.Rows[i][j].ToString(), new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 10, 1, new BaseColor(System.Drawing.ColorTranslator.FromHtml("#000000"))));
+
+                    }
+                    table.AddCell(cell);
+                }
+            }
+            table.SetWidths(new float[] { 2, 8, 1, 1 });
+            doc.Add(table);
+            //Espacio
+
+            
             doc.Close();
             Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('Factura.pdf','_newtab');", true);
             //Response.Redirect("Presupuesto.pdf");
